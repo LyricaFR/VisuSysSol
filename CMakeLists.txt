@@ -5,7 +5,8 @@ project(MasterImage)
 set(CMAKE_CXX_STANDARD 17)
 
 # Set the folder where the executables are created
-set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE})
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin)
+
 
 # Include glimac
 add_subdirectory(glimac)
@@ -35,9 +36,10 @@ function(setup_proj PROJ_NAME)
     include("CMakeUtils/files_and_folders.cmake")
     Cool__target_copy_folder(${TARGET_NAME} assets)
     Cool__target_copy_folder(${TARGET_NAME} ${PROJ_NAME}/shaders)
+
+    # Debug messages
+    message(STATUS "Copying shaders for ${TARGET_NAME} from ${PROJ_NAME}/shaders to ${EXECUTABLE_OUTPUT_PATH}/${PROJ_NAME}/shaders")
 endfunction(setup_proj)
-
-
 
 # Apply the function for the name "SolarSys"
 setup_proj(SolarSys)

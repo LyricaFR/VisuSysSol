@@ -132,8 +132,8 @@ int ex2_triangle_couleurs(char** argv)
 int main(int argc, char* argv[])
 {
     argc++;
-    
+
     ex2_triangle_couleurs(argv);
 
-    return 1;
+    return 0;
 }
