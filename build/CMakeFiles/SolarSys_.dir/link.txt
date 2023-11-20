@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/SolarSys_.dir/SolarSys/main.cpp.o -o "/home/2ing2/dejesusmilitar/Documents/S1/OTHER/GLImac-Template 2/bin/SolarSys_"  glimac/libglimac.a glimac/third-party/glfw/src/libglfw3.a -lpthread /usr/lib/x86_64-linux-gnu/librt.so -lm -ldl glimac/libglad.a 

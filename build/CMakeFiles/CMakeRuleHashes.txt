@@ -1,0 +1,11 @@
+# Hashes of file build rules.
+34abce27cba45d369c8749cc4f78bff3 DUMMY_SolarSys/shaders/.DS_Store_SolarSys_
+4e8c6e47cbc84952ed32ead04eb1a46e DUMMY_SolarSys/shaders/triangle.fs.glsl_SolarSys_
+2ca298c5ef92e3b2f468e2c01fc6c7e2 DUMMY_SolarSys/shaders/triangle.vs.glsl_SolarSys_
+ea88cc4eaed43a256143e5a7f37bfe56 DUMMY_assets/models/cornell_box.mtl_SolarSys_
+09879885c80e3cc425926ddb386bf613 DUMMY_assets/models/cornell_box.obj_SolarSys_
+77d1381a9dd7b327572d9f5ff57fdef7 DUMMY_assets/models/cube.mtl_SolarSys_
+1b1602dcb85ed0ca684ec86ab1f5f3ef DUMMY_assets/models/cube.obj_SolarSys_
+85594366dc948dc86c5fa42b8e5ad979 glimac/third-party/glfw/CMakeFiles/uninstall
+140135c680466d0b30119c24277917d3 glimac/third-party/glfw/docs/html/index.html
+9d2914fbead706d08146510ce9c72bf6 glimac/third-party/glfw/src/CMakeFiles/update_mappings
