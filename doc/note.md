@@ -59,6 +59,7 @@ Génère l'image, il convertis les informations en pixels à afficher
 - traitement lumières
 - textures
 - matériaux
+- post traitement
 - effets visuels
 
 
