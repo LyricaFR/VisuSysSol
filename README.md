@@ -25,7 +25,7 @@ From the root you can run
 ./bin/SolarSys_
 ```
 
-From the buil folder
+From the build folder
 
 ```
 ./../bin/SolarSys_

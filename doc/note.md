@@ -5,7 +5,7 @@
 
 #### Application de visualisation
 - Système de callbacks pour nos events dans notre cas.
-- Utiliser Valgrind.
+- Utiliser Valgrind. (Cette page explique tout cequ'il faut savoir : https://stackoverflow.com/questions/5134891/how-do-i-use-valgrind-to-find-memory-leaks)
 - Les tailles doivent être relatives seulement (homotétie)
 - Séparer la partie "Moteur d'application" et "Moteur de rendu" 
 

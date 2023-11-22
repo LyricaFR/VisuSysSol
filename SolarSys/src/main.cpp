@@ -1,15 +1,8 @@
-// Vectors
-#include <vector>
+#include "include/coreEngine.hpp"
 
 
-#include "include/events.hpp"
-
-
-int main(int argc, char* argv[])
-{
-    argc++;
-
-    ex2_triangle_couleurs(argv);
-
+int main(void)
+{   
+    render3DScene();
     return 0;
 }
