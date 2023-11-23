@@ -1,3 +1,20 @@
+/*
+======================================================
+=  													 =
+=      Made by Kevin QUACH and Dylan DE JESUS	     =
+=													 =
+=													 =
+=  This is the core engine module, it is the         =
+=  gathering of the whole system that manages the    =
+=  behaviour of the app.                             =
+=													 =
+=  We can find the main loop that manages the        =
+=  simulation.										 =
+=													 =
+======================================================
+*/
+
+
 #pragma once
 
 #include <iostream>
@@ -5,7 +22,18 @@
 #include "include/window.hpp"
 #include "include/tools.hpp"
 #include "include/events.hpp"
+#include "include/renderEngine.hpp"
 
 
+/**
+ * @brief Renders the whole 3D simulation
+ *
+ * Launches the main loop that allows the program to run the 3D simulation.
+ * It manages the computations of trasnformations, the window management, 
+ * and the rendering of a 3D environment.
+ *
+ * @return The code error of the core engine part.
+ * 
+ ********************************************************************************/
 int render3DScene();
 

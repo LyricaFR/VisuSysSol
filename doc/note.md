@@ -92,3 +92,45 @@ Génère l'image, il convertis les informations en pixels à afficher
 main -> application -> rendu
 
 
+#### Found a good documentation convention
+
+
+```c
+
+/**
+ * @brief This first line is a brief description.
+ *
+ * The rest of the lines are a more detailed description of the
+ * function that outlines what it does and anything interesting about
+ * how it does it.
+ *
+ * @param x Description of the first parameter.
+ * @param y Description of the second parameter.
+ * @param z Description of the third parameter.
+ *
+ * @return This is where you describe the possible return values.  
+ * If the function is void then there must not be a @return markup
+ * element in this doc box! (Don't document something that does not exist.)
+ *
+ * @note This is how you can add an optional note about the function that
+ *    may be of interest to someone using it.
+ *
+ * @warning This is how you can add an optional warning to a user of the
+ *    function suitable for noting things like 'This function is not thread
+ *    safe' and so on.
+ *
+ * @bug This is how you can add an optional description of a known bug in the
+ *    function such as: This only works for positive values of z.
+ ********************************************************************************/
+
+```
+
+Example there : https://faculty.cs.niu.edu/~winans/howto/doxygen/
+
+
+
+### Dylan part
+
+Penser à mettre la fenêtre dans une classe C++ et ses fonctions pour manipuler l'objet dans le core engine.
+Cela permettrait d'être plus maintenable si jamais on devait changer le gestionnaire de fenêtre par exemple
+il suffirait juste d'hériter de la classe ou simplement changer le contenu des fonctions.

@@ -1,13 +1,36 @@
+/*
+======================================================
+=  													 =
+=     Made by Kevin QUACH and Dylan DE JESUS	     =
+=													 =
+=													 =
+=  Window management module.                         =
+=  													 =
+======================================================
+*/
+
 #include "include/window.hpp"
 
 #include <iostream>
 
+
+/**
+ * @brief Displays the error that occured on the window.
+ *
+ * @param code Code error.
+ * @param desc A description of the error.
+ ********************************************************************************/
 void onError(int code, const char* desc){
-    std::cout << "Code : "<< code << std::endl
+    std::cerr << "Code : "<< code << std::endl
               << desc  << std::endl;
 }
 
 
+/**
+ * @brief Initializes the library for the window management.
+ *
+ * @return A code error telling if the initialization is successfull or not.
+ ********************************************************************************/
 int initWindowLib(){
     if(!glfwInit()){
         return ERR_INT_CODE;
@@ -16,10 +39,35 @@ int initWindowLib(){
 }
 
 
+/**
+ * @brief Frees properly the current window.
+ ********************************************************************************/
 void freeCurrentWindow(){
     glfwTerminate();
 }
 
+
+/**
+ * @brief Checks if a window is still active/opened.
+ *
+ * @return A boolean, true if window is still open and false otherwise.
+ ********************************************************************************/
+int isWindowOpen(GLFWwindow *window){
+    if(glfwWindowShouldClose(window)){  // Close flag is true
+        return false;
+    }
+    return true;
+}
+
+
+
+void manageWindow(GLFWwindow *window){
+    /* Swap front and back buffers */
+    glfwSwapBuffers(window);
+
+    // Check the possible events that occured
+    glfwPollEvents();
+}
 
 
 GLFWwindow* createWindow(unsigned int width, unsigned int height, const char* title){
