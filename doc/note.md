@@ -125,12 +125,18 @@ main -> application -> rendu
 
 ```
 
-Example there : https://faculty.cs.niu.edu/~winans/howto/doxygen/
+Exemple ici : https://faculty.cs.niu.edu/~winans/howto/doxygen/
 
 
 
-### Dylan part
+### Partie Dylan
 
-Penser à mettre la fenêtre dans une classe C++ et ses fonctions pour manipuler l'objet dans le core engine.
+~~Penser à mettre la fenêtre dans une classe C++ et ses fonctions pour manipuler l'objet dans le core engine.
 Cela permettrait d'être plus maintenable si jamais on devait changer le gestionnaire de fenêtre par exemple
-il suffirait juste d'hériter de la classe ou simplement changer le contenu des fonctions.
+il suffirait juste d'hériter de la classe ou simplement changer le contenu des fonctions.~~
+
+
+Ajouter le système de retour d'information concernant les évènements. (ceux sur l'état de la fenêtre (GLFW) peuvent être gérés directement dans la fonction callBack)
+Le retour d'information serait plutôt à faire les changements liés au mode de vue par exemple etc
+
+Enlever le gladLoad du copnstructeur de Window, pour le mettre dans une fonction du render Engine.

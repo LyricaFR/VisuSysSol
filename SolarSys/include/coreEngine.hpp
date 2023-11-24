@@ -21,7 +21,6 @@
 
 #include "include/window.hpp"
 #include "include/tools.hpp"
-#include "include/events.hpp"
 #include "include/renderEngine.hpp"
 
 

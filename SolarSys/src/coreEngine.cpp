@@ -30,28 +30,28 @@
  ********************************************************************************/
 int render3DScene(){
 
-    GLFWwindow * window;
+    if(!Window::initWindowLib()){
+        return ERR_INT_CODE;
+    }
+    
+    auto window = Window(1000, 1000, "App");
 
-    if(!initWindowLib()){
+    if(!window.isCreated()){
         return ERR_INT_CODE;
     }
 
-    if (!(window = createWindow(1000, 1000, "App"))){
-        return ERR_INT_CODE;
-    }
+    window.configureEvents();
 
-    setEvents(window);
-
-    while (isWindowOpen(window)){
+    while (window.isWindowOpen()){
 
         clearDisplay();
 
         // Rendering There
 
-        manageWindow(window);  // Make the window active (events) and swap the buffers
+        window.manageWindow();  // Make the window active (events) and swap the buffers
     }
 
-    freeCurrentWindow();
+    Window::freeCurrentWindow();
     
     return SUCCESS_INT_CODE;
 }

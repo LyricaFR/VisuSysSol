@@ -25,10 +25,11 @@
  * @param width Width dimension. Contains the new width of the window.
  * @param height Height dimension. Contains the new height of the window.
  ********************************************************************************/
-void onWindowResized(GLFWwindow *window, int width, int height)
+void Events::onWindowResized(GLFWwindow *window, int width, int height)
 {
     std::cout << "RESIZE : " << window << " for dimension " << width << " x " << height << std::endl;
 }
+
 
 /**
  * @brief Callback function for the motion of the mouse on the window.
@@ -39,10 +40,11 @@ void onWindowResized(GLFWwindow *window, int width, int height)
  * @param x Position of the mouse on x axis.
  * @param y  Position of the mouse on y axis.
  ********************************************************************************/
-void onMouseMotion(GLFWwindow *window, double x, double y)
+void Events::onMouseMotion(GLFWwindow *window, double x, double y)
 {
     std::cout << "Mouse Motion : " << window << " for mouse position " << x << " , " << y << std::endl;
 }
+
 
 /**
  * @brief Callback function for the mouse buttons.
@@ -54,7 +56,7 @@ void onMouseMotion(GLFWwindow *window, double x, double y)
  * @param action Kind of action (Pressed/Released).
  * @param other Other information.
  ********************************************************************************/
-void onMouseButton(GLFWwindow *window, int code, int action, int other)
+void Events::onMouseButton(GLFWwindow *window, int code, int action, int other)
 {
     std::cout << "Mouse Button : " << window << " of code " << code << " fo action "
               << action << " and other : " << other << std::endl;
@@ -70,11 +72,12 @@ void onMouseButton(GLFWwindow *window, int code, int action, int other)
  * @param scancode Code of the key.
  * @param action Kind of action (Pressed/Released).
  ********************************************************************************/
-void onKey(GLFWwindow *window, int key, int scancode, int action, int mods)
+void Events::onKey(GLFWwindow *window, int key, int scancode, int action, int mods)
 {
     std::cout << "Key Event : " << window << " for key " << key << " of scancode " << scancode
               << ". Made the action : " << action << " and mods are " << mods << std::endl;
 }
+
 
 /**
  * @brief Sets all the events the user is allowed to interact with.
@@ -85,10 +88,10 @@ void onKey(GLFWwindow *window, int key, int scancode, int action, int mods)
  *
  * @param window A window to bind the events with.
  ********************************************************************************/
-void setEvents(GLFWwindow *window)
+void Events::setEvents(GLFWwindow *window)
 {
-    glfwSetWindowSizeCallback(window, onWindowResized);
-    glfwSetCursorPosCallback(window, onMouseMotion);   /* Mouse moved */
-    glfwSetMouseButtonCallback(window, onMouseButton); /* Mouse click */
+    glfwSetWindowSizeCallback(window, Events::onWindowResized);
+    glfwSetCursorPosCallback(window, Events::onMouseMotion);   /* Mouse moved */
+    glfwSetMouseButtonCallback(window, Events::onMouseButton); /* Mouse click */
     glfwSetKeyCallback(window, onKey);                 /* Key events */
 }

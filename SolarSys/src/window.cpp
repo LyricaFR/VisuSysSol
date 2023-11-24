@@ -11,7 +11,7 @@
 
 #include "include/window.hpp"
 
-#include <iostream>
+
 
 /**
  * @brief Displays the error that occured on the window.
@@ -19,7 +19,7 @@
  * @param code Code error.
  * @param desc A description of the error.
  ********************************************************************************/
-void onError(int code, const char *desc)
+void Window::onError(int code, const char *desc)
 {
     std::cerr << "Code : " << code << std::endl
               << desc << std::endl;
@@ -30,7 +30,7 @@ void onError(int code, const char *desc)
  *
  * @return A code error telling if the initialization is successfull or not.
  ********************************************************************************/
-int initWindowLib()
+int Window::initWindowLib()
 {
     if (!glfwInit())
     {
@@ -42,7 +42,7 @@ int initWindowLib()
 /**
  * @brief Frees properly the current window.
  ********************************************************************************/
-void freeCurrentWindow()
+void Window::freeCurrentWindow()
 {
     glfwTerminate();
 }
@@ -52,9 +52,9 @@ void freeCurrentWindow()
  *
  * @return A boolean, true if window is still open and false otherwise.
  ********************************************************************************/
-int isWindowOpen(GLFWwindow *window)
+bool Window::isWindowOpen()
 {
-    if (glfwWindowShouldClose(window))
+    if (glfwWindowShouldClose(_window))
     { // Close flag is true
         return false;
     }
@@ -66,13 +66,11 @@ int isWindowOpen(GLFWwindow *window)
  *
  * This means that, its allows the window to react with the possible events by the
  * user on the window for example.
- *
- * @param window A window.
  ********************************************************************************/
-void manageWindow(GLFWwindow *window)
+void Window::manageWindow()
 {
     /* Swap front and back buffers */
-    glfwSwapBuffers(window);
+    glfwSwapBuffers(_window);
 
     // Check the possible events that occured
     glfwPollEvents();
@@ -84,10 +82,8 @@ void manageWindow(GLFWwindow *window)
  * @param width Width dimension of the window.
  * @param height Height dimension of the window.
  * @param title A char array that represents the title of the window.
- *
- * @return A window created otherwise its a null pointer if an error occured.
  ********************************************************************************/
-GLFWwindow *createWindow(unsigned int width, unsigned int height, const char *title)
+Window::Window(unsigned int width, unsigned int height, const char *title)
 {
 
     /* Create a window and its OpenGL context */
@@ -102,22 +98,39 @@ GLFWwindow *createWindow(unsigned int width, unsigned int height, const char *ti
     // Useful to get errors in the window management
     glfwSetErrorCallback(onError);
 
-    GLFWwindow *window = glfwCreateWindow(width, height, title, nullptr, nullptr);
+    _window = glfwCreateWindow(width, height, title, nullptr, nullptr);
 
     // Couldn't be created properly
-    if (!window)
+    if (!_window)
     {
         glfwTerminate();
-        return nullptr;
+        return;
     }
 
     /* Make the window's context current */
-    glfwMakeContextCurrent(window);
+    glfwMakeContextCurrent(_window);
 
-    /* Intialize glad (loads the OpenGL functions) */
+    /* Intialize glad (loads the OpenGL functions) */         /*TODO : METTRE ÇA DANS MODULE RENDER ENGINE*/
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
-        return nullptr;
+        return;
     }
-    return window;
+
+    _state = true;
+}
+
+
+/**
+ * @brief Sets the events for the window.
+ ********************************************************************************/
+void Window::configureEvents()
+{
+    Events::setEvents(_window);
+}
+
+/**
+ * @brief Gives the creation state of the window.
+ ********************************************************************************/
+int Window::isCreated(){
+    return _state;
 }
