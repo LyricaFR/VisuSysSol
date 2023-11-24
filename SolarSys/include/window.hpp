@@ -20,8 +20,6 @@
 
 #include "include/tools.hpp"
 
-
-
 /**
  * @brief Initializes the library for the window management.
  *
@@ -29,13 +27,19 @@
  ********************************************************************************/
 int initWindowLib();
 
-
 /**
  * @brief Frees properly the current window.
  ********************************************************************************/
 void freeCurrentWindow();
 
-
+/**
+ * @brief Make a window being active.
+ *
+ * This means that, its allows the window to react with the possible events by the
+ * user on the window for example.
+ *
+ * @param window A window.
+ ********************************************************************************/
 void manageWindow(GLFWwindow *window);
 
 /**
@@ -45,6 +49,13 @@ void manageWindow(GLFWwindow *window);
  ********************************************************************************/
 int isWindowOpen(GLFWwindow *window);
 
-GLFWwindow* createWindow(unsigned int width, unsigned int height, const char* title);
-
-
+/**
+ * @brief Creates a window.
+ *
+ * @param width Width dimension of the window.
+ * @param height Height dimension of the window.
+ * @param title A char array that represents the title of the window.
+ *
+ * @return A window created otherwise its a null pointer if an error occured.
+ ********************************************************************************/
+GLFWwindow *createWindow(unsigned int width, unsigned int height, const char *title);
