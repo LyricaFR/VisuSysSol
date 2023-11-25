@@ -16,7 +16,6 @@
 
 #include "include/coreEngine.hpp"
 
-#include <glimac/Image.hpp> // LoadImage
 #include <glimac/FilePath.hpp>
 #include <glimac/Program.hpp>
 
@@ -81,7 +80,7 @@ int render3DScene(char *relativePath)
     /*************** TEXTURE LOAD *****************/
     // Sun
     auto PATH_TEXTURE_SUN = "../assets/sunMap.jpeg"; // Upgrade with applicationPath
-    auto ptrTextSun = loadImage(PATH_TEXTURE_SUN);
+    auto ptrTextSun = loadImgFromPath(PATH_TEXTURE_SUN);
 
     if (ptrTextSun == NULL)
     {

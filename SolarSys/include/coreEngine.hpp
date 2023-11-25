@@ -21,6 +21,7 @@
 #include "include/window.hpp"
 #include "include/tools.hpp"
 #include "include/renderEngine.hpp"
+#include "include/resources.hpp"
 
 /**
  * @brief Renders the whole 3D simulation

@@ -140,3 +140,11 @@ Ajouter le système de retour d'information concernant les évènements. (ceux s
 Le retour d'information serait plutôt à faire les changements liés au mode de vue par exemple etc
 
 Enlever le gladLoad du copnstructeur de Window, pour le mettre dans une fonction du render Engine.
+
+
+Il serait peut-être mieux dans la conception logicielle d'include le gestionnaire de ressources (pour la partie chargement des textures) dans le module
+renderEngine(), renderEngine va prendre en argument le path, il charge depuis le gestionnaire de ressources l'image puis fait les link etc
+Cela n'empêchera jamais le coreEngine d'utiloser le module de ressources et cela évitera de diviser lla structure Image dans trop de modules
+qui ne sont pas liés, si jamais on doit changer le gestionnaire de ressources par exemple
+
+
