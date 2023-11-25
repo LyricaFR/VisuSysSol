@@ -11,8 +11,6 @@
 
 #include "include/window.hpp"
 
-
-
 /**
  * @brief Displays the error that occured on the window.
  *
@@ -54,8 +52,8 @@ void Window::freeCurrentWindow()
  ********************************************************************************/
 bool Window::isWindowOpen()
 {
-    if (glfwWindowShouldClose(_window))
-    { // Close flag is true
+    if (glfwWindowShouldClose(_window)) // Close flag is true
+    {
         return false;
     }
     return true;
@@ -110,7 +108,7 @@ Window::Window(unsigned int width, unsigned int height, const char *title)
     /* Make the window's context current */
     glfwMakeContextCurrent(_window);
 
-    /* Intialize glad (loads the OpenGL functions) */         /*TODO : METTRE ÇA DANS MODULE RENDER ENGINE*/
+    /* Intialize glad (loads the OpenGL functions) */ /*TODO : METTRE ÇA DANS MODULE RENDER ENGINE*/
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
         return;
@@ -118,7 +116,6 @@ Window::Window(unsigned int width, unsigned int height, const char *title)
 
     _state = true;
 }
-
 
 /**
  * @brief Sets the events for the window.
@@ -131,6 +128,7 @@ void Window::configureEvents()
 /**
  * @brief Gives the creation state of the window.
  ********************************************************************************/
-int Window::isCreated(){
+int Window::isCreated()
+{
     return _state;
 }

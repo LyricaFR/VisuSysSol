@@ -30,7 +30,6 @@ void Events::onWindowResized(GLFWwindow *window, int width, int height)
     std::cout << "RESIZE : " << window << " for dimension " << width << " x " << height << std::endl;
 }
 
-
 /**
  * @brief Callback function for the motion of the mouse on the window.
  *
@@ -44,7 +43,6 @@ void Events::onMouseMotion(GLFWwindow *window, double x, double y)
 {
     std::cout << "Mouse Motion : " << window << " for mouse position " << x << " , " << y << std::endl;
 }
-
 
 /**
  * @brief Callback function for the mouse buttons.
@@ -76,8 +74,12 @@ void Events::onKey(GLFWwindow *window, int key, int scancode, int action, int mo
 {
     std::cout << "Key Event : " << window << " for key " << key << " of scancode " << scancode
               << ". Made the action : " << action << " and mods are " << mods << std::endl;
-}
 
+    if (key == GLFW_KEY_ESCAPE)
+    {
+        glfwSetWindowShouldClose(window, GLFW_TRUE); // Sets the close flag of the window at true
+    }
+}
 
 /**
  * @brief Sets all the events the user is allowed to interact with.
@@ -93,5 +95,5 @@ void Events::setEvents(GLFWwindow *window)
     glfwSetWindowSizeCallback(window, Events::onWindowResized);
     glfwSetCursorPosCallback(window, Events::onMouseMotion);   /* Mouse moved */
     glfwSetMouseButtonCallback(window, Events::onMouseButton); /* Mouse click */
-    glfwSetKeyCallback(window, onKey);                 /* Key events */
+    glfwSetKeyCallback(window, onKey);                         /* Key events */
 }
