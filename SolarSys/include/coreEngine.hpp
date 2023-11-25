@@ -14,7 +14,6 @@
 ======================================================
 */
 
-
 #pragma once
 
 #include <iostream>
@@ -23,16 +22,15 @@
 #include "include/tools.hpp"
 #include "include/renderEngine.hpp"
 
-
 /**
  * @brief Renders the whole 3D simulation
  *
  * Launches the main loop that allows the program to run the 3D simulation.
- * It manages the computations of trasnformations, the window management, 
+ * It manages the computations of trasnformations, the window management,
  * and the rendering of a 3D environment.
  *
+ * @param relativePath A path location where the app is ran.
+ *
  * @return The code error of the core engine part.
- * 
  ********************************************************************************/
-int render3DScene();
-
+int render3DScene(char *relativePath);

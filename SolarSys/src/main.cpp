@@ -11,13 +11,13 @@
 ======================================================
 */
 
-
 #include "include/coreEngine.hpp"
 
-
-int main(void)
-{   
-    if(render3DScene()){
+int main(int argc, char *argv[])
+{
+    argc++; // Avoid the compilation flag of warning becoming errors
+    if (render3DScene(argv[0]))
+    {
         return EXIT_FAILURE;
     }
     return EXIT_SUCCESS;
