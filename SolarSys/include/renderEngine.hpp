@@ -12,11 +12,12 @@
 ======================================================
 */
 
-
 #pragma once
 
-#include <glad/glad.h>    // GLCleanColor/GLClear
+#include <glad/glad.h>
 
+#include "include/textures.hpp"
+#include "include/tools.hpp"
 
 /**
  * @brief Clears the display on a window.
@@ -24,3 +25,7 @@
  * The current context of the rendered scene is cleared with a colored background
  ********************************************************************************/
 void clearDisplay();
+
+GLuint createTexture(const char *path);
+
+void init3DConfiguration();

@@ -18,6 +18,7 @@
 
 #include <glimac/FilePath.hpp>
 #include <glimac/Program.hpp>
+#include <glimac/getTime.hpp>
 
 #include <glimac/glm.hpp>
 #include <glimac/common.hpp>
@@ -80,27 +81,12 @@ int render3DScene(char *relativePath)
     /*************** TEXTURE LOAD *****************/
     // Sun
     auto PATH_TEXTURE_SUN = "../assets/sunMap.jpeg"; // Upgrade with applicationPath
-    auto ptrTextSun = loadImgFromPath(PATH_TEXTURE_SUN);
+    auto textureID = createTexture(PATH_TEXTURE_SUN);
 
-    if (ptrTextSun == NULL)
+    if (!textureID)
     {
-        std::cout << "Please check the path of the texture image (Sun)" << std::endl;
         return ERR_INT_CODE;
     }
-
-    // Texture Object
-    GLuint main_texture;
-    glGenTextures(1, &main_texture);
-    glBindTexture(GL_TEXTURE_2D, main_texture);
-
-    // Send the image texture to the GPU
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, ptrTextSun->getWidth(), ptrTextSun->getHeight(), 0, GL_RGBA, GL_FLOAT, ptrTextSun->getPixels());
-
-    // FIlters OPenGL will apply when using the texture
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-    glBindTexture(GL_TEXTURE_2D, 0);
 
     /********************* SHADERS IMPORT/ UNIFORM/ PROGRAMMS ********************/
     FilePath applicationPath(relativePath);
@@ -109,7 +95,7 @@ int render3DScene(char *relativePath)
     SunData sunProgram(applicationPath);
 
     /********************* INITIALIZATION ********************/
-    glEnable(GL_DEPTH_TEST); // Enable the GPU to take the depth for 3D
+    init3DConfiguration();
 
     /*************** MATRICES *****************/
 
@@ -161,24 +147,18 @@ int render3DScene(char *relativePath)
     // Unbind the VAO to not modify again
     glBindVertexArray(0);
 
-    float rot = 1;
-
     while (window.isWindowOpen())
     {
         clearDisplay();
-
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
         /**************** RENDERING *****************/
 
         sunProgram.m_Program.use();
 
         // Bind the texture
-        glBindTexture(GL_TEXTURE_2D, main_texture);
+        glBindTexture(GL_TEXTURE_2D, textureID);
 
         // Send the matrices
-        rot += .1;
-        MVMatrix_rotation = glm::rotate(MVMatrix, rot, glm::vec3(0, 1, 0));
+        MVMatrix_rotation = glm::rotate(MVMatrix, getTime(), glm::vec3(0, 1, 0));
         normalMatrix_rotation = glm::transpose(glm::inverse(MVMatrix_rotation));
         MVPMatrix_rotation = projMatrix * MVMatrix_rotation;
 

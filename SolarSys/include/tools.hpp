@@ -11,11 +11,8 @@
 ======================================================
 */
 
-
 #pragma once
-
 
 // Errors code for integer return values
 #define ERR_INT_CODE 0
 #define SUCCESS_INT_CODE 1
- 

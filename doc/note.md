@@ -148,3 +148,15 @@ Cela n'empêchera jamais le coreEngine d'utiloser le module de ressources et cel
 qui ne sont pas liés, si jamais on doit changer le gestionnaire de ressources par exemple
 
 
+Se documenter sur une formule de rendu procédurale qui simules des flammes
+
+
+
+![Plan Architecture](img1.jpg)
+
+![Plan Architecture](img2.jpg)
+
+![Plan Architecture](img3.jpg)
+
+
+
