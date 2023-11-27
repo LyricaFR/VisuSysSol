@@ -21,25 +21,24 @@
 #include "include/tools.hpp"
 #include "include/planetObject.hpp"
 
-
-class RenderEngine{
+class RenderEngine
+{
 public:
-    RenderEngine(){}
+    RenderEngine() {}
 
     void create3DSphere();
 
-    void start(const PlanetObject& planet);
+    void start(const PlanetObject &planet);
 
-    void draw(PlanetObject& planet);
+    void draw(PlanetObject &planet);
 
-    void end(const PlanetObject& planet);
+    void end();
 
 private:
     GLuint _vbo;
     GLuint _vao;
     unsigned int _nbVertices = 0;
 };
-
 
 /**
  * @brief Clears the display on a window.

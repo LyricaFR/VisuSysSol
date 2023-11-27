@@ -41,8 +41,6 @@ void init3DConfiguration()
     glEnable(GL_DEPTH_TEST); // Enable the GPU to take the depth for 3D
 }
 
-
-
 void RenderEngine::create3DSphere()
 {
     auto sphere = Sphere(1, 32, 16);
@@ -81,23 +79,21 @@ void RenderEngine::create3DSphere()
     glBindVertexArray(0);
 }
 
-
-
-void RenderEngine::start(const PlanetObject& planet){
+void RenderEngine::start(const PlanetObject &planet)
+{
 
     // Bind the texture
     glBindTexture(GL_TEXTURE_2D, planet.getTextID());
 
     // Bind the VAO to draw its data
     glBindVertexArray(_vao);
-
 }
 
-
-void RenderEngine::draw(PlanetObject& planet){
+void RenderEngine::draw(PlanetObject &planet)
+{
 
     auto planetShader = planet.getShaderManager();
-    auto& planetProgram = planetShader->m_Program; // Use of reference to not call the copy constructor of Program (which is private)
+    auto &planetProgram = planetShader->m_Program; // Use of reference to not call the copy constructor of Program (which is private)
 
     planetProgram.use();
 
@@ -105,7 +101,10 @@ void RenderEngine::draw(PlanetObject& planet){
     auto MVPMatrix = transfos.getMVPMatrix();
     auto MVMatrix = transfos.getMVMatrix();
     auto normalMatrix = transfos.getMVPMatrix();
-    
+
+    std::cout << "ARRRRRRFFGGGGGH : " << planetShader->uMVPMatrix << std::endl;
+    std::cout << "ARRRRRRFFGGGGGH : " << planetShader->uMVMatrix << std::endl;
+    std::cout << "ARRRRRRFFGGGGGH : " << planetShader->uNormalMatrix << std::endl;
     std::cout << "ARRRRRRFFGGGGGH : " << planetShader->uTexture << std::endl;
 
     // Send matrices
@@ -114,17 +113,17 @@ void RenderEngine::draw(PlanetObject& planet){
     glUniformMatrix4fv(planetShader->uNormalMatrix, 1, GL_FALSE, glm::value_ptr(normalMatrix));
 
     // Send Texture
-    glUniform1i(planetShader->uTexture, planet.getTextID());
+    glUniform1i(planetShader->uTexture, 0);
 
     // Draw the vertices
     glDrawArrays(GL_TRIANGLES, 0, _nbVertices);
 }
 
-
-void RenderEngine::end(const PlanetObject& planet){
+void RenderEngine::end()
+{
 
     // UnBind the texture
-    glBindTexture(GL_TEXTURE_2D, planet.getTextID()); // Put it in a loop for number of active textures
+    glBindTexture(GL_TEXTURE_2D, 0); // Put it in a loop for number of active textures
 
     // Unbind the VAO
     glBindVertexArray(0);

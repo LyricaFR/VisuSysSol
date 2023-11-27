@@ -16,7 +16,6 @@
 
 #include "include/coreEngine.hpp"
 
-
 #include <glimac/glm.hpp>
 #include <glimac/FilePath.hpp>
 #include <glimac/Program.hpp>
@@ -38,7 +37,7 @@ struct SunDataTMP
     GLint uSunTexture;
 
     SunDataTMP(const FilePath &applicationPath) : m_Program(loadProgram(applicationPath.dirPath() + "SolarSys/shaders/3D.vs.glsl",
-                                                                     applicationPath.dirPath() + "SolarSys/shaders/3D.fs.glsl"))
+                                                                        applicationPath.dirPath() + "SolarSys/shaders/3D.fs.glsl"))
     {
         uMVPMatrix = glGetUniformLocation(m_Program.getGLId(), "uMVPMatrix");
         uMVMatrix = glGetUniformLocation(m_Program.getGLId(), "uMVMatrix");
@@ -47,21 +46,6 @@ struct SunDataTMP
         uSunTexture = glGetUniformLocation(m_Program.getGLId(), "uTexture");
     }
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /**
  * @brief Renders the whole 3D simulation
@@ -100,12 +84,11 @@ int render3DScene(char *relativePath)
     auto PATH_TEXTURE_SUN = "../assets/sunMap.jpeg"; // Upgrade with applicationPath
     auto textureID = createTexture(PATH_TEXTURE_SUN);
 
-
     /********************* GRAPHIC OBJECT CREATION ********************/
     FilePath applicationPath(relativePath);
 
     auto sunData = SunData();
-    //auto shader = Shader1Texture(applicationPath);
+    // auto shader = Shader1Texture(applicationPath);
 
     EarthShader newS(applicationPath);
     auto sun = PlanetObject(textureID, sunData, &newS);
@@ -113,8 +96,6 @@ int render3DScene(char *relativePath)
 
     /********************* INITIALIZE THE 3d CONFIGURATION (DEPTH) ********************/
     init3DConfiguration();
-
-
 
     auto renderEng = RenderEngine();
     renderEng.create3DSphere();
@@ -188,40 +169,39 @@ int render3DScene(char *relativePath)
 
         renderEng.draw(sun);
 
-        renderEng.end(sun);
-
-
+        renderEng.end();
 
         window.manageWindow(); // Make the window active (events) and swap the buffers
 
-
         // /**************** RENDERING *****************/
-
 
         // // Bind the texture
         // glBindTexture(GL_TEXTURE_2D, textureID);
 
-
-        // sunProgram.m_Program.use();
+        // newS.m_Program.use();
 
         // // Send the matrices
-        // MVMatrix_rotation = glm::rotate(MVMatrix, getTime(), glm::vec3(0, 1, 0));
-        // normalMatrix_rotation = glm::transpose(glm::inverse(MVMatrix_rotation));
-        // MVPMatrix_rotation = projMatrix * MVMatrix_rotation;
+        // sun.updateMatrices();
 
-        // std::cout << sunProgram.uNormalMatrix << std::endl;
+        // auto matrices = sun.getMatrices();
 
-        // glUniformMatrix4fv(sunProgram.uMVPMatrix, 1, GL_FALSE, glm::value_ptr(MVPMatrix_rotation));
-        // glUniformMatrix4fv(sunProgram.uMVMatrix, 1, GL_FALSE, glm::value_ptr(MVMatrix_rotation));
-        // glUniformMatrix4fv(sunProgram.uNormalMatrix, 1, GL_FALSE, glm::value_ptr(normalMatrix_rotation));
+        // auto MVMatrix_rotation = matrices.getMVMatrix();
+        // auto normalMatrix_rotation = matrices.getNormalMatrix();
+        // auto MVPMatrix_rotation = matrices.getMVPMatrix();
 
-        // glUniform1i(sunProgram.uSunTexture, 0); // Earth Texture
+        // // std::cout << sunProgram.uNormalMatrix << std::endl;
+
+        // glUniformMatrix4fv(newS.uMVPMatrix, 1, GL_FALSE, glm::value_ptr(MVPMatrix_rotation));
+        // glUniformMatrix4fv(newS.uMVMatrix, 1, GL_FALSE, glm::value_ptr(MVMatrix_rotation));
+        // glUniformMatrix4fv(newS.uNormalMatrix, 1, GL_FALSE, glm::value_ptr(normalMatrix_rotation));
+
+        // glUniform1i(newS.uTexture, 0); // Earth Texture
 
         // // Bind the VAO to draw its data
         // glBindVertexArray(vao);
 
         // // ===== Earth =====
-        // glDrawArrays(GL_TRIANGLES, 0, nbVertices);
+        // glDrawArrays(GL_TRIANGLES, 0, 10000000);
 
         // // UnBind the texture
         // glBindTexture(GL_TEXTURE_2D, 0);
