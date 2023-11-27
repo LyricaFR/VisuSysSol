@@ -15,9 +15,31 @@
 #pragma once
 
 #include <glad/glad.h>
+#include <glimac/Sphere.hpp>
 
 #include "include/textures.hpp"
 #include "include/tools.hpp"
+#include "include/planetObject.hpp"
+
+
+class RenderEngine{
+public:
+    RenderEngine(){}
+
+    void create3DSphere();
+
+    void start(const PlanetObject& planet);
+
+    void draw(PlanetObject& planet);
+
+    void end(const PlanetObject& planet);
+
+private:
+    GLuint _vbo;
+    GLuint _vao;
+    unsigned int _nbVertices = 0;
+};
+
 
 /**
  * @brief Clears the display on a window.
