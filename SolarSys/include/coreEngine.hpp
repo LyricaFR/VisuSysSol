@@ -22,7 +22,8 @@
 #include "include/tools.hpp"
 #include "include/renderEngine.hpp"
 #include "include/resources.hpp"
-
+#include "include/planetData.hpp"
+#include "include/planetObject.hpp"
 /**
  * @brief Renders the whole 3D simulation
  *

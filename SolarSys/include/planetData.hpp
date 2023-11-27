@@ -16,13 +16,15 @@
 
 class PlanetData
 {
+
+public:
+    virtual ~PlanetData() {}
+    
 protected:
     PlanetData(float rotation, float diameter)
         : _rotationPeriod{rotation}, _diameter{diameter}
     {
     }
-
-    virtual ~PlanetData() {}
 
     float _rotationPeriod;
     float _diameter;

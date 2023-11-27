@@ -26,7 +26,7 @@
 
 using namespace glimac;
 
-struct SunData
+struct SunDataTMP
 {
     Program m_Program;
 
@@ -35,7 +35,7 @@ struct SunData
     GLint uNormalMatrix;
     GLint uSunTexture;
 
-    SunData(const FilePath &applicationPath) : m_Program(loadProgram(applicationPath.dirPath() + "SolarSys/shaders/3D.vs.glsl",
+    SunDataTMP(const FilePath &applicationPath) : m_Program(loadProgram(applicationPath.dirPath() + "SolarSys/shaders/3D.vs.glsl",
                                                                      applicationPath.dirPath() + "SolarSys/shaders/3D.fs.glsl"))
     {
         uMVPMatrix = glGetUniformLocation(m_Program.getGLId(), "uMVPMatrix");
@@ -83,16 +83,25 @@ int render3DScene(char *relativePath)
     auto PATH_TEXTURE_SUN = "../assets/sunMap.jpeg"; // Upgrade with applicationPath
     auto textureID = createTexture(PATH_TEXTURE_SUN);
 
-    if (!textureID)
-    {
-        return ERR_INT_CODE;
-    }
 
-    /********************* SHADERS IMPORT/ UNIFORM/ PROGRAMMS ********************/
+    /********************* GRAPHIC OBJECT CREATION ********************/
     FilePath applicationPath(relativePath);
 
+    auto sunData = SunData();
+    auto shader = Shader1Texture(applicationPath);
+    auto sun = PlanetObject(sunData, shader);
+
+    /********************* INITIALIZE THE 3d CONFIGURATION (DEPTH) ********************/
+    init3DConfiguration();
+
+
+
+
+
+    /********************* SHADERS IMPORT/ UNIFORM/ PROGRAMMS ********************/
+
     // Programs of lighted objects
-    SunData sunProgram(applicationPath);
+    SunDataTMP sunProgram(applicationPath);
 
     /********************* INITIALIZATION ********************/
     init3DConfiguration();

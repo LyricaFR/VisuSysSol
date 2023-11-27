@@ -33,9 +33,7 @@ GLuint createTexture(const char *path)
         return ERR_INT_CODE;
     }
 
-    auto textID = loadTexture(std::move(ptrText));
-
-    return textID < 0 ? ERR_INT_CODE : textID; // Check that the texture has been loaded successfully
+    return loadTexture(std::move(ptrText));
 }
 
 void init3DConfiguration()

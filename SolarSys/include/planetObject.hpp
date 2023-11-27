@@ -14,17 +14,18 @@
 #pragma once
 
 #include "include/planetData.hpp"
-#include "glimac/Program.hpp"
+#include "include/shaderManager.hpp"
 
 class PlanetObject
 {
 public:
-    PlanetObject();
+    PlanetObject(const PlanetData& data, const ShaderManager& shader) : _data{data}, _shader{shader}
+    {}
 
 private:
     PlanetData _data;
-    GLuint textId;
-    // add the shaders (structure with the uniform values)
+    GLuint _textId;
+    ShaderManager _shader;
     // add the satellites (later)
     // add the matrices
 };
