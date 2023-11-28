@@ -113,16 +113,20 @@ void RenderEngine::draw(PlanetObject &planet)
     glUniformMatrix4fv(planetShader->uMVMatrix, 1, GL_FALSE, glm::value_ptr(MVMatrix));
     glUniformMatrix4fv(planetShader->uNormalMatrix, 1, GL_FALSE, glm::value_ptr(normalMatrix));
 
-
     // //Send the textures
     int i = 0;
     auto planetTexts = planet.getTextIDs();
+    
     for(auto it = planetTexts.begin(); it != planetTexts.end(); it++){
-        glUniform1i(planetShader->uTextures[i], i);
+        glUniform1i(0, i);
 
+
+        std::cout << "Pointeur " << planetShader->uTextures.size() << std::endl;
+        std::cerr << "SEGFAULT .." << std::endl;
         i++;
     }
 
+    
     
 
     // Draw the vertices

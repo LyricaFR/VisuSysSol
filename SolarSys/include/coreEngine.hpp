@@ -18,6 +18,8 @@
 
 #include <iostream>
 
+
+
 #include "include/window.hpp"
 #include "include/tools.hpp"
 #include "include/renderEngine.hpp"
@@ -25,6 +27,9 @@
 #include "include/planetData.hpp"
 #include "include/planetObject.hpp"
 #include "include/solarSystem.hpp"
+#include "include/pathStorage.hpp"
+
+#include <glimac/getTime.hpp> // Must keep it after the other includes
 
 
 /**

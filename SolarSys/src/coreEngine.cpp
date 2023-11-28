@@ -16,16 +16,35 @@
 
 #include "include/coreEngine.hpp"
 
-#include <glimac/glm.hpp>
-#include <glimac/FilePath.hpp>
-#include <glimac/Program.hpp>
-#include <glimac/getTime.hpp>
 
-#include <glimac/glm.hpp>
-#include <glimac/common.hpp>
-#include <glimac/Sphere.hpp>
 
-using namespace glimac;
+void createSolarSys(char *relativePath, float windowWidth, float windowHeight, SolarSystem *solarSys){
+
+    auto textureID = createTexture(PathStorage::PATH_TEXTURE_SUN);
+    auto textureEarth = createTexture(PathStorage::PATH_TEXTURE_EARTH);
+    auto textureClouds = createTexture(PathStorage::PATH_TEXTURE_CLOUDS);
+
+    FilePath applicationPath(relativePath);
+
+    auto sunData = SunData();
+    auto shader = Shader1Texture(applicationPath);
+    auto sun = PlanetObject(textureID, sunData, &shader);
+    sun.configureMatrices(windowWidth, windowHeight);
+
+    auto earthData = EarthData();
+    auto earthShader = Shader2Texture(applicationPath);
+
+    unsigned int textures[] = {textureEarth, textureClouds};
+    auto earth = PlanetObject(2, textures, earthData, &earthShader);
+    earth.configureMatrices(windowWidth + 1, windowHeight);
+    
+    solarSys->addPlanet(sun);
+    solarSys->addPlanet(earth);
+}
+    
+
+
+
 
 
 /**
@@ -61,40 +80,44 @@ int render3DScene(char *relativePath)
     window.configureEvents();
 
     /*************** TEXTURE LOAD *****************/
-    // Sun
-    auto PATH_TEXTURE_SUN = "../assets/sun/sunBetter.jpg"; // Upgrade with applicationPath
 
-    auto PATH_TEXTURE_EARTH = "../assets/earth/earthMapBetter.jpg"; // Upgrade with applicationPath
-    auto PATH_TEXTURE_CLOUDS = "../assets/earth/earthCloudBetter.jpg"; // Upgrade with applicationPath
+    // auto textureID = createTexture(PathStorage::PATH_TEXTURE_SUN);
+    // auto textureEarth = createTexture(PathStorage::PATH_TEXTURE_EARTH);
+    // auto textureClouds = createTexture(PathStorage::PATH_TEXTURE_CLOUDS);
 
-    auto textureID = createTexture(PATH_TEXTURE_SUN);
-    auto textureEarth = createTexture(PATH_TEXTURE_EARTH);
-    auto textureClouds = createTexture(PATH_TEXTURE_CLOUDS);
+    // FilePath applicationPath(relativePath);
+
+    // auto sunData = SunData();
+    // auto shader = Shader1Texture(applicationPath);
+    // auto sun = PlanetObject(textureID, sunData, &shader);
+    // sun.configureMatrices(windowWidth, windowHeight);
+
+    // auto earthData = EarthData();
+    // auto earthShader = Shader2Texture(applicationPath);
+
+    // unsigned int textures[] = {textureEarth, textureClouds};
+    // auto earth = PlanetObject(2, textures, earthData, &earthShader);
+    // earth.configureMatrices(windowWidth + 1, windowHeight);
+    
+
+    // auto solarSys = SolarSystem();
+    // solarSys.addPlanet(sun);
+    // solarSys.addPlanet(earth);
+
+    
+
+
+
 
     /********************* GRAPHIC OBJECT CREATION ********************/
-    FilePath applicationPath(relativePath);
-
-    auto sunData = SunData();
-    auto shader = Shader1Texture(applicationPath);
-    auto sun = PlanetObject(textureID, sunData, &shader);
-    sun.configureMatrices(windowWidth, windowHeight);
-
-    auto earthData = EarthData();
-    auto earthShader = Shader2Texture(applicationPath);
-
-    unsigned int textures[] = {textureEarth, textureClouds};
-    auto earth = PlanetObject(2, textures, earthData, &earthShader);
-    earth.configureMatrices(windowWidth + 1, windowHeight);
     
+
     auto solarSys = SolarSystem();
 
-    solarSys.addPlanet(sun);
-    solarSys.addPlanet(earth);
-
+    createSolarSys(relativePath, windowWidth, windowHeight, &solarSys);
 
     /********************* INITIALIZE THE 3D CONFIGURATION (DEPTH) ********************/
     init3DConfiguration();
-
     auto renderEng = RenderEngine();
     renderEng.create3DSphere();
 
