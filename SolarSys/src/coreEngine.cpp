@@ -51,7 +51,7 @@ int render3DScene(char *relativePath)
         return ERR_INT_CODE;
     }
 
-    auto window = Window(windowWidth, windowHeight, "App");
+    auto window = Window(windowWidth, windowHeight, "== * Solar System * ==");
 
     if (!window.isCreated())
     {
@@ -62,8 +62,14 @@ int render3DScene(char *relativePath)
 
     /*************** TEXTURE LOAD *****************/
     // Sun
-    auto PATH_TEXTURE_SUN = "../assets/sunMap.jpeg"; // Upgrade with applicationPath
+    auto PATH_TEXTURE_SUN = "../assets/sun/sunBetter.jpg"; // Upgrade with applicationPath
+
+    auto PATH_TEXTURE_EARTH = "../assets/earth/earthMapBetter.jpg"; // Upgrade with applicationPath
+    auto PATH_TEXTURE_CLOUDS = "../assets/earth/earthCloudBetter.jpg"; // Upgrade with applicationPath
+
     auto textureID = createTexture(PATH_TEXTURE_SUN);
+    auto textureEarth = createTexture(PATH_TEXTURE_EARTH);
+    auto textureClouds = createTexture(PATH_TEXTURE_CLOUDS);
 
     /********************* GRAPHIC OBJECT CREATION ********************/
     FilePath applicationPath(relativePath);
@@ -73,24 +79,40 @@ int render3DScene(char *relativePath)
     auto sun = PlanetObject(textureID, sunData, &shader);
     sun.configureMatrices(windowWidth, windowHeight);
 
+    auto earthData = EarthData();
+    auto earthShader = Shader2Texture(applicationPath);
+
+    unsigned int textures[] = {textureEarth, textureClouds};
+    auto earth = PlanetObject(2, textures, earthData, &earthShader);
+    earth.configureMatrices(windowWidth + 1, windowHeight);
+    
+    auto solarSys = SolarSystem();
+
+    solarSys.addPlanet(sun);
+    solarSys.addPlanet(earth);
+
+
     /********************* INITIALIZE THE 3D CONFIGURATION (DEPTH) ********************/
     init3DConfiguration();
 
     auto renderEng = RenderEngine();
     renderEng.create3DSphere();
 
+    auto planets = solarSys.getAllPlanets();
+
     while (window.isWindowOpen())
     {
         clearDisplay();
 
-        renderEng.start(sun);
+        for(auto it = planets.begin(); it != planets.end(); it++){
+            auto currentPlanet = *it;
 
-        // Put a loop there
-        sun.updateMatrices(getTime()*0.01);
-
-        renderEng.draw(sun);
-
-        renderEng.end();
+            renderEng.start(currentPlanet);
+            currentPlanet.updateMatrices(getTime());
+            renderEng.draw(currentPlanet);
+            renderEng.end(currentPlanet);
+        }
+        
 
         window.manageWindow(); // Make the window active (events) and swap the buffers
     }

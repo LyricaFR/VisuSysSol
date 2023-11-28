@@ -24,6 +24,9 @@
 #include "include/resources.hpp"
 #include "include/planetData.hpp"
 #include "include/planetObject.hpp"
+#include "include/solarSystem.hpp"
+
+
 /**
  * @brief Renders the whole 3D simulation
  *

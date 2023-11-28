@@ -21,7 +21,14 @@ public:
 
     void init(float w, float h){
         _projMatrix = glm::perspective(glm::radians(70.f), w / h, 0.1f, 100.f);
-        _MVMatrix = glm::translate(glm::mat4(1), glm::vec3(0.f, 0.f, -5.f));
+
+        if(w == 1000){
+            _MVMatrix = glm::translate(glm::mat4(1), glm::vec3(0.f, 0.f, -6.f));
+        }else{
+            _MVMatrix = glm::translate(glm::mat4(1), glm::vec3(-2.f, 1.f, -5.f));
+        }
+
+        
         _normalMatrix = glm::transpose(glm::inverse(_MVMatrix));
         _MVPMatrix = _projMatrix * _MVMatrix;
     }

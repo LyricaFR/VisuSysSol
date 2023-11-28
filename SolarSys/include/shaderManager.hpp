@@ -27,7 +27,7 @@ protected:
         uMVPMatrix = glGetUniformLocation(m_Program.getGLId(), "uMVPMatrix");
         uMVMatrix = glGetUniformLocation(m_Program.getGLId(), "uMVMatrix");
         uNormalMatrix = glGetUniformLocation(m_Program.getGLId(), "uNormalMatrix");
-        uTexture = glGetUniformLocation(m_Program.getGLId(), "uTexture");
+        uTextures.emplace_back(glGetUniformLocation(m_Program.getGLId(), "uTexture"));
     }
 
 public:
@@ -37,7 +37,7 @@ public:
     GLint uMVPMatrix;
     GLint uMVMatrix;
     GLint uNormalMatrix;
-    GLint uTexture;
+    std::vector<GLint> uTextures;
     
 };
 
@@ -46,6 +46,19 @@ public:
 struct Shader1Texture : public ShaderManager
 {
 public:
-    Shader1Texture(const FilePath &applicationPath) : ShaderManager(applicationPath, "SolarSys/shaders/3D.vs.glsl", "SolarSys/shaders/3D.fs.glsl")
+    Shader1Texture(const FilePath &applicationPath) : ShaderManager(applicationPath, "SolarSys/shaders/3D.vs.glsl", "SolarSys/shaders/1Text.fs.glsl")
     {}
+};
+
+
+
+
+// Shader structure for multitexturing (2)
+struct Shader2Texture : public ShaderManager
+{
+public:
+    Shader2Texture(const FilePath &applicationPath) : ShaderManager(applicationPath, "SolarSys/shaders/3D.vs.glsl", "SolarSys/shaders/2Text.fs.glsl") 
+    {
+        uTextures.emplace_back(glGetUniformLocation(m_Program.getGLId(), "uSecondTexture"));
+    }
 };

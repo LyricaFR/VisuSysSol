@@ -14,6 +14,5 @@ void main() {
     // Own code
     vec4 text = texture(uTexture, vFragText);
     vec4 color_norm = normalize(vVertexNormalVC);
-
     fFragColor =  text;
 }

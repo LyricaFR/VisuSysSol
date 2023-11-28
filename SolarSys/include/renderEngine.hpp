@@ -32,7 +32,7 @@ public:
 
     void draw(PlanetObject &planet);
 
-    void end();
+    void end(const PlanetObject& planet);
 
 private:
     GLuint _vbo;

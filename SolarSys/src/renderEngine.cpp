@@ -83,7 +83,13 @@ void RenderEngine::start(const PlanetObject &planet)
 {
 
     // Bind the texture
-    glBindTexture(GL_TEXTURE_2D, planet.getTextID());
+    auto planetTexts = planet.getTextIDs();
+    int i = 0;
+    for(auto it = planetTexts.begin(); it != planetTexts.end(); it++){
+        glActiveTexture(GL_TEXTURE0 + i);
+        glBindTexture(GL_TEXTURE_2D, *it);  // Earth texture binded to #0
+        i++;
+    }
 
     // Bind the VAO to draw its data
     glBindVertexArray(_vao);
@@ -107,18 +113,29 @@ void RenderEngine::draw(PlanetObject &planet)
     glUniformMatrix4fv(planetShader->uMVMatrix, 1, GL_FALSE, glm::value_ptr(MVMatrix));
     glUniformMatrix4fv(planetShader->uNormalMatrix, 1, GL_FALSE, glm::value_ptr(normalMatrix));
 
-    // Send Texture
-    glUniform1i(planetShader->uTexture, 0);
+
+    // //Send the textures
+    int i = 0;
+    auto planetTexts = planet.getTextIDs();
+    for(auto it = planetTexts.begin(); it != planetTexts.end(); it++){
+        glUniform1i(planetShader->uTextures[i], i);
+
+        i++;
+    }
+
+    
 
     // Draw the vertices
     glDrawArrays(GL_TRIANGLES, 0, _nbVertices);
 }
 
-void RenderEngine::end()
+void RenderEngine::end(const PlanetObject& planet)
 {
 
-    // UnBind the texture
-    glBindTexture(GL_TEXTURE_2D, 0); // Put it in a loop for number of active textures
+    // Unbind textures
+    for(unsigned int i = 0; i < planet.getTextIDs().size(); i++){
+        glBindTexture(GL_TEXTURE_2D, 0);
+    }
 
     // Unbind the VAO
     glBindVertexArray(0);

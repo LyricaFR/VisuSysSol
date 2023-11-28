@@ -13,6 +13,8 @@
 
 #pragma once
 
+#include <vector>
+
 #include "include/planetData.hpp"
 #include "include/shaderManager.hpp"
 #include "include/matrices.hpp"
@@ -20,8 +22,17 @@
 class PlanetObject
 {
 public:
-    PlanetObject(GLuint textureID, const PlanetData& data, ShaderManager* shader) : _data{data}, _textID{textureID}, _shader{shader}
-    {}
+    PlanetObject(GLuint textureID, const PlanetData& data, ShaderManager* shader) : _data{data}, _shader{shader}
+    {
+        _textIDs.emplace_back(textureID);
+    }
+
+    PlanetObject(unsigned int nbOfTextures, GLuint * textureIDs, const PlanetData& data, ShaderManager* shader) : _data{data}, _shader{shader}
+    {
+        for(unsigned int i = 0; i < nbOfTextures; i++){
+            _textIDs.emplace_back(textureIDs[i]);
+        }
+    }
 
     void configureMatrices(float w, float h){
         _matrices.init(w, h);
@@ -41,8 +52,8 @@ public:
         _matrices.setMVPMatrix(MVPMatrix);
     }
 
-    GLuint getTextID() const{
-        return _textID;
+    const std::vector<GLuint> getTextIDs() const{
+        return _textIDs;
     }
 
     const ShaderManager* getShaderManager() {
@@ -55,7 +66,7 @@ public:
 
 private:
     PlanetData _data;
-    GLuint _textID;
+    std::vector<GLuint> _textIDs;
     ShaderManager* _shader;
     Matrices _matrices;
     // add the satellites (later)
