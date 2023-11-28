@@ -9,8 +9,11 @@ in vec2 vFragText;
 
 out vec4 fFragColor;
 
+
 void main() {
-  vec4 text = texture(uTexture, vFragText);
-  vec4 color_norm = normalize(vVertexNormalVC);
-  fFragColor = text;
+    // Own code
+    vec4 text = texture(uTexture, vFragText);
+    vec4 color_norm = normalize(vVertexNormalVC);
+
+    fFragColor =  text;
 }

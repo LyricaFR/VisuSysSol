@@ -102,11 +102,6 @@ void RenderEngine::draw(PlanetObject &planet)
     auto MVMatrix = transfos.getMVMatrix();
     auto normalMatrix = transfos.getMVPMatrix();
 
-    std::cout << "ARRRRRRFFGGGGGH : " << planetShader->uMVPMatrix << std::endl;
-    std::cout << "ARRRRRRFFGGGGGH : " << planetShader->uMVMatrix << std::endl;
-    std::cout << "ARRRRRRFFGGGGGH : " << planetShader->uNormalMatrix << std::endl;
-    std::cout << "ARRRRRRFFGGGGGH : " << planetShader->uTexture << std::endl;
-
     // Send matrices
     glUniformMatrix4fv(planetShader->uMVPMatrix, 1, GL_FALSE, glm::value_ptr(MVPMatrix));
     glUniformMatrix4fv(planetShader->uMVMatrix, 1, GL_FALSE, glm::value_ptr(MVMatrix));

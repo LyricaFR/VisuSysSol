@@ -20,18 +20,19 @@
 class PlanetObject
 {
 public:
-    PlanetObject(GLuint textureID, const PlanetData& data, EarthShader* shader) : _data{data}, _textID{textureID}, _shader{shader}
+    PlanetObject(GLuint textureID, const PlanetData& data, ShaderManager* shader) : _data{data}, _textID{textureID}, _shader{shader}
     {}
 
     void configureMatrices(float w, float h){
         _matrices.init(w, h);
     }
 
-    void updateMatrices(){
+    void updateMatrices(float rotation){
 
         auto previousMVMatrix = _matrices.getMVMatrix();
         auto projMatrix = _matrices.getProjMatrix();
-        auto MVMatrix = glm::rotate(previousMVMatrix, 0.f, glm::vec3(0, 1, 0));
+
+        auto MVMatrix = glm::rotate(previousMVMatrix, rotation, glm::vec3(0, 1, 0));
         auto normalMatrix = glm::transpose(glm::inverse(MVMatrix));
         auto MVPMatrix = projMatrix * MVMatrix;
 
@@ -44,7 +45,7 @@ public:
         return _textID;
     }
 
-    const EarthShader* getShaderManager() {
+    const ShaderManager* getShaderManager() {
         return _shader;
     }
 
@@ -55,7 +56,7 @@ public:
 private:
     PlanetData _data;
     GLuint _textID;
-    EarthShader* _shader;
+    ShaderManager* _shader;
     Matrices _matrices;
     // add the satellites (later)
 };
