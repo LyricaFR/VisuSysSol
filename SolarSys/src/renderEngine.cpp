@@ -98,7 +98,8 @@ void RenderEngine::start(const PlanetObject &planet)
 void RenderEngine::draw(PlanetObject &planet)
 {
 
-    auto planetShader = planet.getShaderManager();
+    //auto planetShader = planet.getShaderManager();
+    auto planetShader = planet.getShaderManager().get();
     auto &planetProgram = planetShader->m_Program; // Use of reference to not call the copy constructor of Program (which is private)
 
     planetProgram.use();
@@ -118,11 +119,7 @@ void RenderEngine::draw(PlanetObject &planet)
     auto planetTexts = planet.getTextIDs();
     
     for(auto it = planetTexts.begin(); it != planetTexts.end(); it++){
-        glUniform1i(0, i);
-
-
-        std::cout << "Pointeur " << planetShader->uTextures.size() << std::endl;
-        std::cerr << "SEGFAULT .." << std::endl;
+        glUniform1i(planetShader->uTextures[i], i);
         i++;
     }
 

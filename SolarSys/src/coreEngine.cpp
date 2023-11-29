@@ -19,32 +19,29 @@
 
 
 void createSolarSys(char *relativePath, float windowWidth, float windowHeight, SolarSystem *solarSys){
-
     auto textureID = createTexture(PathStorage::PATH_TEXTURE_SUN);
     auto textureEarth = createTexture(PathStorage::PATH_TEXTURE_EARTH);
     auto textureClouds = createTexture(PathStorage::PATH_TEXTURE_CLOUDS);
 
+
     FilePath applicationPath(relativePath);
 
     auto sunData = SunData();
-    auto shader = Shader1Texture(applicationPath);
-    auto sun = PlanetObject(textureID, sunData, &shader);
+    auto shader = std::make_shared<Shader1Texture>(applicationPath);
+    auto sun = PlanetObject(textureID, sunData, shader);
     sun.configureMatrices(windowWidth, windowHeight);
 
     auto earthData = EarthData();
-    auto earthShader = Shader2Texture(applicationPath);
+    auto earthShader = std::make_shared<Shader2Texture>(applicationPath);
 
     unsigned int textures[] = {textureEarth, textureClouds};
-    auto earth = PlanetObject(2, textures, earthData, &earthShader);
+    auto earth = PlanetObject(2, textures, earthData, earthShader);
     earth.configureMatrices(windowWidth + 1, windowHeight);
     
     solarSys->addPlanet(sun);
     solarSys->addPlanet(earth);
 }
     
-
-
-
 
 
 /**
@@ -79,42 +76,11 @@ int render3DScene(char *relativePath)
 
     window.configureEvents();
 
-    /*************** TEXTURE LOAD *****************/
-
-    // auto textureID = createTexture(PathStorage::PATH_TEXTURE_SUN);
-    // auto textureEarth = createTexture(PathStorage::PATH_TEXTURE_EARTH);
-    // auto textureClouds = createTexture(PathStorage::PATH_TEXTURE_CLOUDS);
-
-    // FilePath applicationPath(relativePath);
-
-    // auto sunData = SunData();
-    // auto shader = Shader1Texture(applicationPath);
-    // auto sun = PlanetObject(textureID, sunData, &shader);
-    // sun.configureMatrices(windowWidth, windowHeight);
-
-    // auto earthData = EarthData();
-    // auto earthShader = Shader2Texture(applicationPath);
-
-    // unsigned int textures[] = {textureEarth, textureClouds};
-    // auto earth = PlanetObject(2, textures, earthData, &earthShader);
-    // earth.configureMatrices(windowWidth + 1, windowHeight);
-    
-
-    // auto solarSys = SolarSystem();
-    // solarSys.addPlanet(sun);
-    // solarSys.addPlanet(earth);
-
-    
-
-
-
-
     /********************* GRAPHIC OBJECT CREATION ********************/
-    
-
     auto solarSys = SolarSystem();
 
     createSolarSys(relativePath, windowWidth, windowHeight, &solarSys);
+
 
     /********************* INITIALIZE THE 3D CONFIGURATION (DEPTH) ********************/
     init3DConfiguration();
@@ -135,7 +101,6 @@ int render3DScene(char *relativePath)
             renderEng.draw(currentPlanet);
             renderEng.end(currentPlanet);
         }
-        
 
         window.manageWindow(); // Make the window active (events) and swap the buffers
     }
