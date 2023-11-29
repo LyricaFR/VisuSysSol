@@ -1,5 +1,5 @@
 # VisuSysSol
-3D Simulation of the Solar system
+3D Simulation of the Solar system (School Project)
 
 
 ## Compilation of the simulation
