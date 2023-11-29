@@ -34,6 +34,9 @@ public:
 
     void end(const PlanetObject& planet);
 
+
+    static GLuint createTexture(const char *path);
+
 private:
     GLuint _vbo;
     GLuint _vao;
@@ -47,6 +50,6 @@ private:
  ********************************************************************************/
 void clearDisplay();
 
-GLuint createTexture(const char *path);
+
 
 void init3DConfiguration();

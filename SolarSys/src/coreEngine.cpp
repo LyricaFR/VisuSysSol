@@ -18,25 +18,52 @@
 
 
 
-void createSolarSys(char *relativePath, float windowWidth, float windowHeight, SolarSystem *solarSys){
-    auto textureID = createTexture(PathStorage::PATH_TEXTURE_SUN);
-    auto textureEarth = createTexture(PathStorage::PATH_TEXTURE_EARTH);
-    auto textureClouds = createTexture(PathStorage::PATH_TEXTURE_CLOUDS);
 
+template <typename DataType = PlanetData, typename ShaderType = ShaderManager>
+PlanetObject createPlanet(FilePath applicationPath, int nbTextures, unsigned int *textures, float width, float height){
+    auto planetData = DataType();
+    auto shader = std::make_shared<ShaderType>(applicationPath);
+    auto planet = PlanetObject(nbTextures, textures, planetData, shader);
+    planet.configureMatrices(width, height);
+    return planet;
+}
+
+
+template <typename DataType, typename ShaderType = ShaderManager>
+PlanetObject createPlanet(FilePath applicationPath, unsigned int texture, float width, float height){
+    auto planetData = DataType();
+    auto shader = std::make_shared<ShaderType>(applicationPath);
+    auto planet = PlanetObject(texture, planetData, shader);
+    planet.configureMatrices(width, height);
+    return planet;
+}
+
+
+
+
+/**
+ * @brief Fills an empty solar sytem with all the information about it (planets...).
+ *
+ * @param relativePath A path location where the app is ran.
+ * @param windowWidth Width of the window.
+ * @param windowHeight Height of the window.
+ * @param solarSys A SolarSystem object we want to fill.
+ ********************************************************************************/
+void createSolarSys(char *relativePath, float windowWidth, float windowHeight, SolarSystem *solarSys){
 
     FilePath applicationPath(relativePath);
 
-    auto sunData = SunData();
-    auto shader = std::make_shared<Shader1Texture>(applicationPath);
-    auto sun = PlanetObject(textureID, sunData, shader);
-    sun.configureMatrices(windowWidth, windowHeight);
+    // Textures loading
+    auto sunText = RenderEngine::createTexture(PathStorage::PATH_TEXTURE_SUN);
+    auto earthText = RenderEngine::createTexture(PathStorage::PATH_TEXTURE_EARTH);
+    auto cloudText = RenderEngine::createTexture(PathStorage::PATH_TEXTURE_CLOUDS);
 
-    auto earthData = EarthData();
-    auto earthShader = std::make_shared<Shader2Texture>(applicationPath);
+    // Sun
+    auto sun = createPlanet<SunData, Shader1Texture>(applicationPath, sunText, windowWidth, windowHeight);    
 
-    unsigned int textures[] = {textureEarth, textureClouds};
-    auto earth = PlanetObject(2, textures, earthData, earthShader);
-    earth.configureMatrices(windowWidth + 1, windowHeight);
+    // Earth
+    unsigned int textures[] = {earthText, cloudText};
+    auto earth = createPlanet<EarthData, Shader2Texture>(applicationPath, 2, textures, windowWidth + 1, windowHeight);
     
     solarSys->addPlanet(sun);
     solarSys->addPlanet(earth);
