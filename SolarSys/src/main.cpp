@@ -20,7 +20,7 @@
 int main(int argc, char *argv[])
 {
     argc++; // Avoid the compilation flag of warning becoming errors
-    if (render3DScene(argv[0])) // Erro code received
+    if (render3DScene(argv[0])) // Error code received
     {
         return EXIT_FAILURE; 
     }

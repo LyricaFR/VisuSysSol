@@ -26,11 +26,10 @@
 
 
 /**
- * Representation of a window where we can render the 3D scene.
+ * @brief Representation of a window where we can render the 3D scene.
  *
  * This one is using GLFW library.
- *
- */
+ ********************************************************************************/
 class Window {
 
     public:
@@ -56,7 +55,7 @@ class Window {
         /**
          * @brief Frees properly the current window.
          ********************************************************************************/
-        static void freeCurrentWindow();
+        /*static*/ void freeCurrentWindow();
 
         /**
          * @brief Make a window being active.
@@ -97,14 +96,6 @@ class Window {
         static void onError(int code, const char *desc);
 
 
-
-        GLFWwindow *_window = NULL;
-        bool _state = false;
+        GLFWwindow *_window = NULL;     // Pointer on a GLFW window
+        bool _state = false;            // True if the window is open and false otherwise
 };
-
-
-
-
-
-
-

@@ -97,7 +97,7 @@ PlanetObject createPlanet(FilePath applicationPath, unsigned int texture, float 
  * @param windowHeight Height of the window.
  * @param solarSys A SolarSystem object we want to fill.
  ********************************************************************************/
-void createSolarSys(char *relativePath, float windowWidth, float windowHeight, SolarSystem& solarSys){
+void createSolarSys(char *relativePath, float windowWidth, float windowHeight/*, SolarSystem& solarSys*/){
 
     FilePath applicationPath(relativePath);
 
@@ -113,9 +113,9 @@ void createSolarSys(char *relativePath, float windowWidth, float windowHeight, S
     unsigned int textures[] = {earthText, cloudText};
     auto earth = createPlanet<EarthData, Shader2Texture>(applicationPath, 2, textures, windowWidth + 1, windowHeight); // TODO : When the data linking is done, no need to add 1 to the width
     
-    // Fill the solar system
-    solarSys.addPlanet(sun);
-    solarSys.addPlanet(earth);
+    // // Fill the solar system
+    // solarSys.addPlanet(sun);
+    // solarSys.addPlanet(earth);
 }
 
 
@@ -148,21 +148,23 @@ int render3DScene(char *relativePath)
     }
     window.configureEvents();
 
+
     /********************* GRAPHIC OBJECTS CREATION ********************/
     auto solarSys = SolarSystem();
-    createSolarSys(relativePath, windowWidth, windowHeight, solarSys);
+    createSolarSys(relativePath, windowWidth, windowHeight/*, solarSys*/);
 
     /***************** INITIALIZE THE 3D CONFIGURATION (DEPTH) *******************/
-    init3DConfiguration();
+    RenderEngine::init3DConfiguration();
     auto renderEng = RenderEngine();
-    renderEng.create3DSphere();
+    renderEng.createSphere();
 
     auto planets = solarSys.getAllPlanets();
+
 
     /********************* RENDERING LOOP ********************/
     while (window.isWindowOpen())
     {
-        clearDisplay();
+        RenderEngine::clearDisplay();
 
         for(auto it = planets.begin(); it != planets.end(); it++){
             auto currentPlanet = *it;
@@ -176,7 +178,7 @@ int render3DScene(char *relativePath)
         window.manageWindow(); // Make the window active (events) and swap the buffers
     }
 
-    Window::freeCurrentWindow();
+    window.freeCurrentWindow();
 
     return SUCCESS_INT_CODE;   // defined inside the tools module
 }

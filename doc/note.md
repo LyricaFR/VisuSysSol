@@ -161,7 +161,7 @@ Penser à gérer le cas de redimensionnement de la fenêtre pour que la scène f
 
 ### Rapport
 
-Préciser que l'on a essayer au maximum d'éviter les fuites mémoires en évitant les pointeurs C (+ regarder pour les pointeurs pour les tableaux de textures, voir si ils se free automatiquement)
+Préciser que l'on a essayer au maximum d'éviter les fuites mémoires en évitant les pointeurs C (+ regarder pour les pointeurs pour les tableaux de textures, voir si ils se free automatiquement + regarder pour ma window qui garde une pointeur sur une fenêtre GLFW)
 
 
 ![Plan Architecture](img1.jpg)

@@ -16,4 +16,9 @@
 
 #include "include/resources.hpp"
 
+/**
+ * @brief Loads a texture.
+ * 
+ * @param ptrText A pointer on an Image (defined in the glimac library).
+ ********************************************************************************/
 GLuint loadTexture(std::unique_ptr<Image> ptrText);

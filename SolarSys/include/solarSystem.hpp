@@ -14,22 +14,38 @@
 #pragma once
 
 #include <vector>
+
 #include "include/planetObject.hpp"
 
+
+/**
+ * @brief Gathers all the planets.
+ * 
+ * It is a PlanetObject (defined in the planetObject module) container.
+ ********************************************************************************/
 class SolarSystem{
 public:
-    SolarSystem()
-    {}
 
-    void addPlanet(const PlanetObject& planet){
-        _planets.emplace_back(planet);
-    }
+    /**
+     * @brief Constructor of the class.
+     ********************************************************************************/
+    SolarSystem() {}
 
-    const std::vector<PlanetObject> getAllPlanets() const {
-        return _planets;
-    }
+    /**
+     * @brief Adds a new planet.
+     * 
+     * @param planet A PlanetObject (defined in the planetObject module) to add
+     ********************************************************************************/
+    void addPlanet(const PlanetObject& planet);
 
+    /**
+     * @brief Get a collection of all the planets stored.
+     * 
+     * @return A vector of all the PlanetObject (defined in the planetObject module)
+     *         stored.
+     ********************************************************************************/
+    const std::vector<PlanetObject> getAllPlanets() const;
 
 private:
-    std::vector<PlanetObject> _planets;
+    std::vector<PlanetObject> _planets;  // Planets storage
 };

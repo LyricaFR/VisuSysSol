@@ -1,14 +1,14 @@
 /*
 ======================================================
-=  													 =
+=  						     =
 =      Made by Kevin QUACH and Dylan DE JESUS	     =
-=													 =
-=													 =
+=						     =
+=						     =
 =  This module introduces all the data concercing    =
 =  the app, we can find the information about the    =
 =  solar system behaviour such as the rotation       =
-=  period of the planets and more.					 =
-=													 =
+=  period of the planets and more.		     =
+=						     =
 ======================================================
 */
 
@@ -16,7 +16,7 @@
 
 
 
-/*========================== PLANET DATA ==========================*/
+/*================================== PLANET DATA ====================================*/
 
 
 /**
@@ -32,7 +32,7 @@ PlanetData::PlanetData(float rotation, float diameter)
 }
 
 
-/*========================== SUN DATA ==========================*/
+/*================================== SUN DATA ====================================*/
 
 /**
  * @brief Constructor of the class.
@@ -42,7 +42,7 @@ SunData::SunData() : PlanetData(25, 10)
 }
 
 
-/*========================== EARTH DATA ==========================*/
+/*================================== EARTH DATA ====================================*/
 
 /**
  * @brief Constructor of the class.

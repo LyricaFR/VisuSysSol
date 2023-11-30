@@ -76,7 +76,7 @@ void Events::onKey(GLFWwindow *window, int key, int scancode, int action, int mo
     std::cout << "Key Event : " << window << " for key " << key << " of scancode " << scancode
               << ". Made the action : " << action << " and mods are " << mods << std::endl;
 
-    if (key == GLFW_KEY_ESCAPE)
+    if (key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE)
     {
         glfwSetWindowShouldClose(window, GLFW_TRUE); // Sets the close flag of the window at true
     }
@@ -93,8 +93,10 @@ void Events::onKey(GLFWwindow *window, int key, int scancode, int action, int mo
  ********************************************************************************/
 void Events::setEvents(GLFWwindow *window)
 {
-    glfwSetWindowSizeCallback(window, Events::onWindowResized);
-    glfwSetCursorPosCallback(window, Events::onMouseMotion);   /* Mouse moved */
-    glfwSetMouseButtonCallback(window, Events::onMouseButton); /* Mouse click */
-    glfwSetKeyCallback(window, onKey);                         /* Key events */
+    // glfwSetWindowSizeCallback(window, Events::onWindowResized);
+    // glfwSetCursorPosCallback(window, Events::onMouseMotion);   /* Mouse moved */
+    // glfwSetMouseButtonCallback(window, Events::onMouseButton); /* Mouse click */
+    // glfwSetKeyCallback(window, onKey);                         /* Key events */
+
+    std::cout << window << std::endl;
 }

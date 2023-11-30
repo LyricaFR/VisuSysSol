@@ -14,34 +14,36 @@
 
 #include "include/renderEngine.hpp"
 
+
 /**
- * @brief Clears the display on a window.
+ * @brief Clears the display of the scene.
  *
- * The current context of the rendered scene is cleared with a colored background
+ * The current context of the rendered scene is cleared with a colored
+ * background.
  ********************************************************************************/
-void clearDisplay()
+void RenderEngine::clearDisplay()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-GLuint RenderEngine::createTexture(const char *path)
-{
-    auto ptrText = loadImgFromPath(path);
-
-    if (ptrText == NULL)
-    {
-        return ERR_INT_CODE;
-    }
-
-    return loadTexture(std::move(ptrText));
-}
-
-void init3DConfiguration()
+/**
+ * @brief Initialise the 3d configuration.
+ * 
+ * It configures the depth of the scene in OpenGL.
+ ********************************************************************************/
+void RenderEngine::init3DConfiguration()
 {
     glEnable(GL_DEPTH_TEST); // Enable the GPU to take the depth for 3D
 }
 
-void RenderEngine::create3DSphere()
+
+/**
+ * @brief Create a Sphere object, fill the vao and vbo with
+ * its data.
+ * 
+ * It congigures the depth of the scene in OpenGL
+ ********************************************************************************/
+void RenderEngine::createSphere()
 {
     auto sphere = Sphere(1, 32, 16);
     _nbVertices = sphere.getVertexCount();
@@ -79,6 +81,31 @@ void RenderEngine::create3DSphere()
     glBindVertexArray(0);
 }
 
+
+/**
+ * @brief Loads a texture at the given path.
+ * 
+ * @param path Path representation of the texture location.
+ ********************************************************************************/
+GLuint RenderEngine::createTexture(const char *path)
+{
+    auto ptrText = loadImgFromPath(path);
+    if (ptrText == NULL)
+    {
+        return ERR_INT_CODE;
+    }
+    return loadTexture(std::move(ptrText));
+}
+
+
+/**
+ * @brief Configures the environment to allow the rendering.
+ * 
+ * Bind the textures of the planet object and the VAO.
+ * 
+ * @param planet A PlanetObject (defined in the planetObject module) we want
+ *               to configure the drawing environment for.
+ ********************************************************************************/
 void RenderEngine::start(const PlanetObject &planet)
 {
 
@@ -95,10 +122,15 @@ void RenderEngine::start(const PlanetObject &planet)
     glBindVertexArray(_vao);
 }
 
+
+/**
+     * @brief Launches the rendering of the given planet.
+     * 
+     * @param planet A PlanetObject (defined in the planetObject module) we want
+     *               to draw.
+     ********************************************************************************/
 void RenderEngine::draw(PlanetObject &planet)
 {
-
-    //auto planetShader = planet.getShaderManager();
     auto planetShader = planet.getShaderManager().get();
     auto &planetProgram = planetShader->m_Program; // Use of reference to not call the copy constructor of Program (which is private)
 
@@ -123,16 +155,19 @@ void RenderEngine::draw(PlanetObject &planet)
         i++;
     }
 
-    
-    
-
     // Draw the vertices
     glDrawArrays(GL_TRIANGLES, 0, _nbVertices);
 }
 
+
+/**
+ * @brief Put an end to the current rendering environment.
+ * 
+ * @param planet A PlanetObject (defined in the planetObject module) we want
+ *               to put an end to the drawing environment for.
+ ********************************************************************************/
 void RenderEngine::end(const PlanetObject& planet)
 {
-
     // Unbind textures
     for(unsigned int i = 0; i < planet.getTextIDs().size(); i++){
         glBindTexture(GL_TEXTURE_2D, 0);

@@ -30,10 +30,11 @@ void Window::onError(int code, const char *desc)
  ********************************************************************************/
 int Window::initWindowLib()
 {
-    if (!glfwInit())
-    {
-        return ERR_INT_CODE;
-    }
+
+    // if (!glfwInit())
+    // {
+    //     return ERR_INT_CODE;
+    // }
     return SUCCESS_INT_CODE;
 }
 
@@ -42,7 +43,19 @@ int Window::initWindowLib()
  ********************************************************************************/
 void Window::freeCurrentWindow()
 {
+    
+    glfwMakeContextCurrent(NULL);
+    glfwSetKeyCallback(_window, nullptr);
+    glfwSetErrorCallback(nullptr);
+
+    
+    glfwDestroyWindow(_window);
     glfwTerminate();
+    
+    //
+    //free(_window);
+    //exit(1);
+
 }
 
 /**
@@ -93,14 +106,21 @@ Window::Window(unsigned int width, unsigned int height, const char *title)
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 #endif
 
+    if (!glfwInit())
+    {
+        exit(1);
+    }
+
+
     // Useful to get errors in the window management
-    glfwSetErrorCallback(onError);
+    //glfwSetErrorCallback(onError);
 
     _window = glfwCreateWindow(width, height, title, nullptr, nullptr);
 
     // Couldn't be created properly
     if (!_window)
     {
+        std::cout << "0" << std::endl;
         glfwTerminate();
         return;
     }
