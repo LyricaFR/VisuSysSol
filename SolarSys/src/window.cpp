@@ -26,15 +26,17 @@ void Window::onError(int code, const char *desc)
 /**
  * @brief Initializes the library for the window management.
  *
+ * @warning This must be called before the creation of the window
+ *
  * @return A code error telling if the initialization is successfull or not.
  ********************************************************************************/
 int Window::initWindowLib()
 {
 
-    // if (!glfwInit())
-    // {
-    //     return ERR_INT_CODE;
-    // }
+    if (!glfwInit())
+    {
+        return ERR_INT_CODE;
+    }
     return SUCCESS_INT_CODE;
 }
 
@@ -43,19 +45,17 @@ int Window::initWindowLib()
  ********************************************************************************/
 void Window::freeCurrentWindow()
 {
-    
+
     glfwMakeContextCurrent(NULL);
     glfwSetKeyCallback(_window, nullptr);
     glfwSetErrorCallback(nullptr);
 
-    
     glfwDestroyWindow(_window);
     glfwTerminate();
-    
-    //
-    //free(_window);
-    //exit(1);
 
+    //
+    // free(_window);
+    // exit(1);
 }
 
 /**
@@ -106,14 +106,8 @@ Window::Window(unsigned int width, unsigned int height, const char *title)
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 #endif
 
-    if (!glfwInit())
-    {
-        exit(1);
-    }
-
-
     // Useful to get errors in the window management
-    //glfwSetErrorCallback(onError);
+    // glfwSetErrorCallback(onError);
 
     _window = glfwCreateWindow(width, height, title, nullptr, nullptr);
 
