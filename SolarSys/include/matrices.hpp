@@ -14,59 +14,98 @@
 
 #include <glimac/glm.hpp>
 
+/**
+ * @brief Gathers many useful matrices used in 3D computer graphics.
+ *
+ * There are 4x4 matrices, including:
+ * 
+ *      -> Projection matrix: Represents the transformation from 3D world coordinates
+ *                             to 2D homogeneous coordinates for rendering.
+ *      -> ModelView matrix: Represents the transformation from the object's local
+ *                           coordinate system to the world coordinate system.
+ *      -> Normal matrix: Represents the transformation on the normals' coordinates,
+ *                        used for correct lighting calculations when transforming objects.
+ *      -> Projection ModelView matrix: Represents the combined transformation of both
+ *                                      the projection and modelview matrices.
+ * 
+ * When an object is built, these matrices are initialized as identity matrices
+ * until they are modified with the `init()` function or specific setters.
+ ********************************************************************************/
 class Matrices
 {
 public:
+
+    /**
+     * @brief Main constructor of the Matrice class.
+     * 
+     * The class doesn't fill its attributes at this point.
+     ********************************************************************************/
     Matrices(){}
 
-    void init(float w, float h){
-        _projMatrix = glm::perspective(glm::radians(70.f), w / h, 0.1f, 100.f);
+    /**
+     * @brief Initialize the matrices.
+     * 
+     * @param w Width used to build the projection matrix (with perspective 
+     * function).
+     * @param h Height used to build the projection matrix (with perspective 
+     * function).
+     ********************************************************************************/
+    void init(float w, float h);
 
-        if(w == 1000){
-            _MVMatrix = glm::translate(glm::mat4(1), glm::vec3(0.f, 0.f, -6.f));
-        }else{
-            _MVMatrix = glm::translate(glm::mat4(1), glm::vec3(-2.f, 1.f, -5.f));
-        }
+    /**
+     * @brief Retrieves the Projection ModelView matrix.
+     * 
+     * @return A view of the 4x4 matrix that represents the Projection ModelView 
+     * matrix.
+     ********************************************************************************/
+    const glm::mat4 getMVPMatrix() const;
 
-        
-        _normalMatrix = glm::transpose(glm::inverse(_MVMatrix));
-        _MVPMatrix = _projMatrix * _MVMatrix;
-    }
+    /**
+     * @brief Retrieves the ModelView matrix.
+     * 
+     * @return A view of the 4x4 matrix that represents the ModelView matrix.
+     ********************************************************************************/
+    const glm::mat4 getMVMatrix() const;
 
-    const glm::mat4 getMVPMatrix() const{
-        return _MVPMatrix;
-    }
+    /**
+     * @brief Retrieves the Normal matrix.
+     * 
+     * @return A view of the 4x4 matrix that represents the Normal matrix.
+     ********************************************************************************/
+    const glm::mat4 getNormalMatrix() const;
 
-    const glm::mat4 getMVMatrix() const{
-        return _MVMatrix;
-    }
-
-    const glm::mat4 getNormalMatrix() const{
-        return _normalMatrix;
-    }
-
-    const glm::mat4 getProjMatrix() const{
-        return _projMatrix;
-    }
-
-
-    void setMVPMatrix(glm::mat4 newMatrix) {
-        _MVPMatrix = newMatrix;
-    }
-
-    void setMVMatrix(glm::mat4 newMatrix) {
-        _MVMatrix = newMatrix;
-    }
-
-    void setNormalMatrix(glm::mat4 newMatrix) {
-        _normalMatrix = newMatrix;
-    }
+    /**
+     * @brief Retrieves the Projection matrix.
+     * 
+     * @return A view of the 4x4 matrix that represents the Projection matrix.
+     ********************************************************************************/
+    const glm::mat4 getProjMatrix() const;
 
 
+    /**
+     * @brief Set a new value to the Projection ModelView matrix.
+     * 
+     * @param newMatrix A 4x4 (glm::mat4 provided by the glm library) matrix.
+     ********************************************************************************/
+    void setMVPMatrix(glm::mat4 newMatrix);
+
+    /**
+     * @brief Set a new value to the ModelView matrix.
+     * 
+     * @param newMatrix A 4x4 (glm::mat4 provided by the glm library) matrix.
+     ********************************************************************************/
+    void setMVMatrix(glm::mat4 newMatrix);
+
+    /**
+     * @brief Set a new value to the Normaal matrix.
+     * 
+     * @param newMatrix A 4x4 (glm::mat4 provided by the glm library) matrix.
+     ********************************************************************************/
+    void setNormalMatrix(glm::mat4 newMatrix);
 
 private:
-    glm::mat4 _projMatrix;
-    glm::mat4 _MVMatrix;
-    glm::mat4 _normalMatrix;
-    glm::mat4 _MVPMatrix;
+    glm::mat4 _projMatrix;      // Projection matrix
+    glm::mat4 _MVMatrix;        // ModelView matrix
+    glm::mat4 _normalMatrix;    // Normal matrix
+    glm::mat4 _MVPMatrix;       // Projection ModelView matrix
 };

@@ -4,9 +4,9 @@
 =      Made by Kevin QUACH and Dylan DE JESUS	     =
 =													 =
 =													 =
-=  This is the core engine module, it is the         =
-=  gathering of the whole system that manages the    =
-=  behaviour of the app.                             =
+=  This is the core engine module, it gathers        =
+=  the whole system that manages the behaviour       =
+=  of the app.                                       =
 =													 =
 =  We can find the main loop that manages the        =
 =  simulation.										 =
@@ -17,8 +17,6 @@
 #pragma once
 
 #include <iostream>
-
-
 
 #include "include/window.hpp"
 #include "include/tools.hpp"

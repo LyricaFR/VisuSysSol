@@ -148,8 +148,20 @@ Cela n'empêchera jamais le coreEngine d'utiloser le module de ressources et cel
 qui ne sont pas liés, si jamais on doit changer le gestionnaire de ressources par exemple
 
 
-Se documenter sur une formule de rendu procédurale qui simules des flammes
+Se documenter sur une formule de rendu procédurale qui simule des flammes
 
+
+Penser à gérer le cas de redimensionnement de la fenêtre pour que la scène fit avec le redimensionnement (Probablement changer la matrice de projection en y mettant les nouvelles valeurs de la fenêtre si redimensionnement il y a eu);
+
+
+
+
+
+
+
+### Rapport
+
+Préciser que l'on a essayer au maximum d'éviter les fuites mémoires en évitant les pointeurs C (+ regarder pour les pointeurs pour les tableaux de textures, voir si ils se free automatiquement)
 
 
 ![Plan Architecture](img1.jpg)

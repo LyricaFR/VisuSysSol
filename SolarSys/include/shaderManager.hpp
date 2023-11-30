@@ -16,6 +16,8 @@
 
 #include <glimac/Program.hpp>
 
+#include "include/pathStorage.hpp"
+
 using namespace glimac;
 
 
@@ -46,18 +48,17 @@ public:
 struct Shader1Texture : public ShaderManager
 {
 public:
-    Shader1Texture(const FilePath &applicationPath) : ShaderManager(applicationPath, "SolarSys/shaders/3D.vs.glsl", "SolarSys/shaders/1Text.fs.glsl")
+    Shader1Texture(const FilePath &applicationPath) 
+    : ShaderManager(applicationPath, PathStorage::RELATIVE_PATH_VERTEX, PathStorage::RELATIVE_PATH_FRAGMENT_1T)
     {}
 };
-
-
 
 
 // Shader structure for multitexturing (2)
 struct Shader2Texture : public ShaderManager
 {
 public:
-    Shader2Texture(const FilePath &applicationPath) : ShaderManager(applicationPath, "SolarSys/shaders/3D.vs.glsl", "SolarSys/shaders/2Text.fs.glsl") 
+    Shader2Texture(const FilePath &applicationPath) : ShaderManager(applicationPath, PathStorage::RELATIVE_PATH_VERTEX, PathStorage::RELATIVE_PATH_FRAGMENT_2T) 
     {
         uTextures.emplace_back(glGetUniformLocation(m_Program.getGLId(), "uSecondTexture"));
     }

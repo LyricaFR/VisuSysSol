@@ -14,30 +14,64 @@
 
 #pragma once
 
+
+/**
+ * @brief Structure that represents data about a planet.
+ * 
+ * It stores information such as the rotation period of the planet, its size..
+ ********************************************************************************/
 class PlanetData
 {
-
 public:
+
+    /**
+     * @brief Destructor of the class.
+     ********************************************************************************/
     virtual ~PlanetData() {}
     
 protected:
-    PlanetData(float rotation, float diameter)
-        : _rotationPeriod{rotation}, _diameter{diameter}
-    {
-    }
 
-    float _rotationPeriod;
-    float _diameter;
+    /**
+     * @brief Constructor of the class.
+     * 
+     * @param rotation A float value that describes the rotation period of the 
+     *                 planet.
+     * @param diameter A size for the planet.
+     ********************************************************************************/
+    PlanetData(float rotation, float diameter);
+
+
+    float _rotationPeriod; // Rotation period of the planet
+    float _diameter;       // Size of the planet
 };
 
+
+/**
+ * @brief Gather data about the Sun.
+ * 
+ * A SunData object is a kind of PlanetData.
+ ********************************************************************************/
 class SunData : public PlanetData
 {
 public:
-    SunData() : PlanetData(25, 10) {}
+    /**
+     * @brief Constructor of the class.
+     ********************************************************************************/
+    SunData();
 };
 
+
+/**
+ * @brief Gather data about the Earth.
+ * 
+ * A EarthData object is a kind of PlanetData.
+ ********************************************************************************/
 class EarthData : public PlanetData
 {
 public:
-    EarthData() : PlanetData(10, 10) {}
+
+    /**
+     * @brief Constructor of the class.
+     ********************************************************************************/
+    EarthData();
 };

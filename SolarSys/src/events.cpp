@@ -16,6 +16,7 @@
 
 #include "include/events.hpp"
 
+
 /**
  * @brief Callback function for the resize event.
  *

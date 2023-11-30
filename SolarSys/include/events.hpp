@@ -23,7 +23,18 @@
 #include <iostream>
 
 
-
+/**
+ * @brief Represents all the interactions the user can have with the window.
+ *
+ * Sets all the behaviours the app must have for each event made by the user
+ * thanks to callback system user with the GLFW library.
+ * It handles : 
+ * 
+ *      -> Mouse motion
+ *      -> Mouse buttons
+ *      -> Window resize
+ *      -> Pression on the keyboard
+ ********************************************************************************/
 class Events{
 
     public:
