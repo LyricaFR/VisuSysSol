@@ -113,8 +113,8 @@ void createSolarSys(char *relativePath, float windowWidth, float windowHeight, S
     auto earth = createPlanet<EarthData, Shader2Texture>(applicationPath, 2, textures, windowWidth + 1, windowHeight); // TODO : When the data linking is done, no need to add 1 to the width
 
     // // Fill the solar system
-    solarSys.addPlanet(sun);
-    solarSys.addPlanet(earth);
+    solarSys.addPlanet(std::make_unique<PlanetObject>(sun));
+    solarSys.addPlanet(std::make_unique<PlanetObject>(earth));
 }
 
 /**
@@ -138,44 +138,42 @@ int render3DScene(char *relativePath)
     {
         return ERR_INT_CODE; // defined inside the tools module
     }
-    auto window = Window(windowWidth, windowHeight, "== * Solar System * ==");
+    auto window = std::make_unique<Window>(windowWidth, windowHeight, "== * Solar System * ==");
 
-    if (!window.isCreated())
+    if (!window->isCreated())
     {
         return ERR_INT_CODE; // defined inside the tools module
     }
-    window.configureEvents();
+    window->configureEvents();
 
     /********************* GRAPHIC OBJECTS CREATION ********************/
-    auto solarSys = SolarSystem();
-    createSolarSys(relativePath, windowWidth, windowHeight, solarSys);
-
+    auto solarSys = std::make_unique<SolarSystem>();
+    createSolarSys(relativePath, windowWidth, windowHeight, *solarSys);
+    std::cout << relativePath << std::endl;
     /***************** INITIALIZE THE 3D CONFIGURATION (DEPTH) *******************/
     RenderEngine::init3DConfiguration();
-    auto renderEng = RenderEngine();
-    renderEng.createSphere();
-
-    auto planets = solarSys.getAllPlanets();
+    auto renderEng = std::make_unique<RenderEngine>();
+    renderEng->createSphere();
 
     /********************* RENDERING LOOP ********************/
-    while (window.isWindowOpen())
+    while (window->isWindowOpen())
     {
         RenderEngine::clearDisplay();
 
-        for (auto it = planets.begin(); it != planets.end(); it++)
-        {
-            auto currentPlanet = *it;
-
-            renderEng.start(currentPlanet);
-            currentPlanet.updateMatrices(getTime());
-            renderEng.draw(currentPlanet);
-            renderEng.end(currentPlanet);
+        for(auto& planet : (*solarSys)){
+            renderEng->start(planet);
+            planet.updateMatrices(getTime());
+            renderEng->draw(planet);
+            renderEng->end(planet);
         }
 
-        window.manageWindow(); // Make the window active (events) and swap the buffers
+        window->manageWindow(); // Make the window active (events) and swap the buffers
     }
 
-    window.freeCurrentWindow();
+    solarSys.reset();
+    renderEng.reset();
+
+    window->freeCurrentWindow();
 
     return SUCCESS_INT_CODE; // defined inside the tools module
 }

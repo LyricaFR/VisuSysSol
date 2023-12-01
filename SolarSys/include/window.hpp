@@ -83,6 +83,13 @@ public:
      ********************************************************************************/
     int isCreated();
 
+    ~Window(){
+        if(_window != NULL){
+            free(_window);
+            _window = NULL;
+        }
+    }
+
 private:
     /**
      * @brief Displays the error that occured on the window.

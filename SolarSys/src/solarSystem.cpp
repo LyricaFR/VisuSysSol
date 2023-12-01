@@ -19,8 +19,8 @@
  * 
  * @param planet A PlanetObject (defined in the planetObject module) to add
  ********************************************************************************/
-void SolarSystem::addPlanet(const PlanetObject& planet){
-    _planets.emplace_back(planet);
+void SolarSystem::addPlanet(std::unique_ptr<PlanetObject> planet){
+    _planets.emplace_back(std::move(planet));
 }
 
 
@@ -30,6 +30,6 @@ void SolarSystem::addPlanet(const PlanetObject& planet){
  * @return A vector of all the PlanetObject (defined in the planetObject module)
  *         stored.
  ********************************************************************************/
-const std::vector<PlanetObject> SolarSystem::getAllPlanets() const {
+const std::vector<std::unique_ptr<PlanetObject>>& SolarSystem::getAllPlanets() const {
     return _planets;
 }

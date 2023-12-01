@@ -93,10 +93,10 @@ void Events::onKey(GLFWwindow *window, int key, int scancode, int action, int mo
  ********************************************************************************/
 void Events::setEvents(GLFWwindow *window)
 {
-    // glfwSetWindowSizeCallback(window, Events::onWindowResized);
-    // glfwSetCursorPosCallback(window, Events::onMouseMotion);   /* Mouse moved */
-    // glfwSetMouseButtonCallback(window, Events::onMouseButton); /* Mouse click */
-    // glfwSetKeyCallback(window, onKey);                         /* Key events */
+    glfwSetWindowSizeCallback(window, Events::onWindowResized);
+    glfwSetCursorPosCallback(window, Events::onMouseMotion);   /* Mouse moved */
+    glfwSetMouseButtonCallback(window, Events::onMouseButton); /* Mouse click */
+    glfwSetKeyCallback(window, onKey);                         /* Key events */
 
     std::cout << window << std::endl;
 }

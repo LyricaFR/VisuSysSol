@@ -56,7 +56,9 @@ public:
     /**
      * @brief Destructor of the class.
      ********************************************************************************/
-    ~PlanetObject() {}
+    ~PlanetObject() {
+        std::cout << "Désolé Sasuke ce sera pour une prochaine fois" << std::endl;
+    }
 
 
     /**

@@ -51,11 +51,9 @@ void Window::freeCurrentWindow()
     glfwSetErrorCallback(nullptr);
 
     glfwDestroyWindow(_window);
-    glfwTerminate();
+    _window = NULL;
 
-    //
-    // free(_window);
-    // exit(1);
+    glfwTerminate();
 }
 
 /**
