@@ -110,7 +110,7 @@ void createSolarSys(char *relativePath, float windowWidth, float windowHeight, S
 
     // Earth
     unsigned int textures[] = {earthText, cloudText};
-    auto earth = createPlanet<EarthData, Shader2Texture>(applicationPath, 2, textures, windowWidth + 1, windowHeight); // TODO : When the data linking is done, no need to add 1 to the width
+    auto earth = createPlanet<EarthData, Shader2Texture>(applicationPath, 2, textures, windowWidth, windowHeight); // TODO : When the data linking is done, no need to add 1 to the width
 
     // // Fill the solar system
     solarSys.addPlanet(std::make_unique<PlanetObject>(sun));
@@ -160,7 +160,8 @@ int render3DScene(char *relativePath)
     {
         RenderEngine::clearDisplay();
 
-        for(auto& planet : (*solarSys)){
+        for (auto &planet : (*solarSys))
+        {
             renderEng->start(planet);
             planet.updateMatrices(getTime());
             renderEng->draw(planet);
