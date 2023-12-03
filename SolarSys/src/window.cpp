@@ -45,15 +45,15 @@ int Window::initWindowLib()
  ********************************************************************************/
 void Window::freeCurrentWindow()
 {
+    glfwMakeContextCurrent(NULL); // Deletion of the context in the current window
 
-    glfwMakeContextCurrent(NULL);
+    // TODO : Make an Event function that remove all the Callbacks which has been set
     glfwSetKeyCallback(_window, nullptr);
     glfwSetErrorCallback(nullptr);
 
+    // Destruction of the window
     glfwDestroyWindow(_window);
-    _window = NULL;
-
-    glfwTerminate();
+    _window = NULL; // Allows identification of a window that has been deleted
 }
 
 /**
@@ -143,4 +143,26 @@ void Window::configureEvents()
 int Window::isCreated()
 {
     return _state;
+}
+
+/**
+ * @brief Destructor of the class.
+ ********************************************************************************/
+Window::~Window()
+{
+    if (_window != NULL) // Need to be sure the _window hasn't been deleted yet
+    {
+        glfwDestroyWindow(_window);
+        _window = NULL;
+    }
+}
+
+/**
+ * @brief Ends the window library.
+ *
+ * Terminates the GLFW library.
+ ********************************************************************************/
+void Window::endWindowLib()
+{
+    glfwTerminate();
 }

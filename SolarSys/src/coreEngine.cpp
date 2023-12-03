@@ -147,10 +147,12 @@ int render3DScene(char *relativePath)
     window->configureEvents();
 
     /********************* GRAPHIC OBJECTS CREATION ********************/
+
     auto solarSys = std::make_unique<SolarSystem>();
     createSolarSys(relativePath, windowWidth, windowHeight, *solarSys);
-    std::cout << relativePath << std::endl;
+
     /***************** INITIALIZE THE 3D CONFIGURATION (DEPTH) *******************/
+
     RenderEngine::init3DConfiguration();
     auto renderEng = std::make_unique<RenderEngine>();
     renderEng->createSphere();
@@ -158,23 +160,27 @@ int render3DScene(char *relativePath)
     /********************* RENDERING LOOP ********************/
     while (window->isWindowOpen())
     {
-        RenderEngine::clearDisplay();
+        RenderEngine::clearDisplay(); // Allows the scene to update its rendering by clearing the display
 
         for (auto &planet : (*solarSys))
         {
-            renderEng->start(planet);
-            planet.updateMatrices(getTime());
-            renderEng->draw(planet);
-            renderEng->end(planet);
+            renderEng->start(planet);         // Binds textures and vao
+            planet.updateMatrices(getTime()); // Update the matrices regarding the time
+            renderEng->draw(planet);          // Draw the current planet
+            renderEng->end(planet);           // Unbind the resources
         }
 
         window->manageWindow(); // Make the window active (events) and swap the buffers
     }
 
+    // Reset the resources before the reset of the window library
     solarSys.reset();
     renderEng.reset();
-
     window->freeCurrentWindow();
+    window.reset();
+
+    // Ends the lib
+    Window::endWindowLib();
 
     return SUCCESS_INT_CODE; // defined inside the tools module
 }

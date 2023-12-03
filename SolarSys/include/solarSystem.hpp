@@ -18,69 +18,84 @@
 
 #include "include/planetObject.hpp"
 
-
 /**
  * @brief Gathers all the planets.
- * 
+ *
  * It is a PlanetObject (defined in the planetObject module) container.
  ********************************************************************************/
-class SolarSystem{
+class SolarSystem
+{
 private:
-
-
-    // Définir un itérateur interne pour SolarSystem
-    class Iterator {
+    /**
+     * @brief Iterator class used to iterate over the planets stored in
+     * the solar system.
+     ********************************************************************************/
+    class Iterator
+    {
     public:
-        using iterator_category = std::forward_iterator_tag;
-        using difference_type   = std::ptrdiff_t;
-        using value_type        = PlanetObject;
-        using pointer           = PlanetObject*;
-        using reference         = PlanetObject&;
+        using iterator_category = std::forward_iterator_tag; // Want it to be forward to allow read and write operations
+        using difference_type = std::ptrdiff_t;
+        using value_type = PlanetObject;
+        using pointer = PlanetObject *;
+        using reference = PlanetObject &;
 
-        // Constructeur prenant un pointeur sur le vecteur et l'indice actuel
-        Iterator(std::vector<std::unique_ptr<PlanetObject>>& vec, size_t index) : planetsVec(&vec), currentIndex(index) {}
+        /**
+         * @brief Constructor of the class.
+         ********************************************************************************/
+        Iterator(std::vector<std::unique_ptr<PlanetObject>> &vec, size_t index);
 
-        // Opérations d'itération
-        Iterator& operator++() {
-            ++currentIndex;
-            return *this;
-        }
+        /**
+         * @brief Moves the pointer of the iterator on the next element (after expression).
+         ********************************************************************************/
+        Iterator &operator++();
 
-        Iterator operator++(int) {
-            Iterator temp = *this;
-            ++(*this);
-            return temp;
-        }
+        /**
+         * @brief Moves the pointer of the iterator on the next element (befor expression).
+         ********************************************************************************/
+        Iterator operator++(int);
 
-        // Opérations de comparaison
-        bool operator==(const Iterator& other) const {
-            return currentIndex == other.currentIndex;
-        }
+        /**
+         * @brief Comparison operator (equality).
+         *
+         * Two iterators are equals if they points at the same index.
+         *
+         * @param other An iterator.
+         *
+         * @return True if the iterators are equals and False otherwise.
+         ********************************************************************************/
+        bool operator==(const Iterator &other) const;
 
-        bool operator!=(const Iterator& other) const {
-            return !(*this == other);
-        }
+        /**
+         * @brief Comparison operator (unequality).
+         *
+         * @param other An iterator.
+         *
+         * @return True if the iterators aren't equals and False otherwise.
+         ********************************************************************************/
+        bool operator!=(const Iterator &other) const;
 
-        // Opérations de déréférencement
-        reference operator*() const {
-            return *planetsVec->at(currentIndex);
-        }
+        /**
+         * @brief Dereferencing operator.
+         *
+         * @return The object stored in the pointer.
+         ********************************************************************************/
+        reference operator*() const;
 
-        pointer operator->() const {
-            return planetsVec->at(currentIndex).get();
-        }
+        /**
+         * @brief Arrow operator.
+         *
+         * @return The pointer that stores the object.
+         ********************************************************************************/
+        pointer operator->() const;
 
     private:
-        std::vector<std::unique_ptr<PlanetObject>>* planetsVec;
-        size_t currentIndex;
+        std::vector<std::unique_ptr<PlanetObject>> *planetsVec; // Storage of the Planets in the iterator context
+        size_t currentIndex;                                    // Value of the current index pointed by the iterator
     };
 
-
-
-    std::vector<std::unique_ptr<PlanetObject>> _planets;  // Planets storage
+    std::vector<std::unique_ptr<PlanetObject>> _planets; // Planets storage (in SolarSystem)
 
 public:
-
     /**
      * @brief Constructor of the class.
      ********************************************************************************/
@@ -88,64 +103,54 @@ public:
 
     /**
      * @brief Adds a new planet.
-     * 
+     *
      * @param planet A PlanetObject (defined in the planetObject module) to add
      ********************************************************************************/
     void addPlanet(std::unique_ptr<PlanetObject> planet);
 
     /**
      * @brief Get a collection of all the planets stored.
-     * 
+     *
      * @return A vector of all the PlanetObject (defined in the planetObject module)
      *         stored.
      ********************************************************************************/
-    const std::vector<std::unique_ptr<PlanetObject>>& getAllPlanets() const;
+    const std::vector<std::unique_ptr<PlanetObject>> &getAllPlanets() const;
 
+    /**
+     * @brief Destructor of the class.
+     ********************************************************************************/
+    ~SolarSystem();
 
+    /**
+     * @brief Returns the first planet.
+     *
+     * @return A pointer on the first planet.
+     ********************************************************************************/
+    Iterator begin();
 
-    ~SolarSystem(){
-        _planets.clear();
-    }
+    /**
+     * @brief Returns the end value of the iterator.
+     *
+     * @return A pointer on the first location that'll generate an error.
+     ********************************************************************************/
+    Iterator end();
 
-    // // Définir l'itérateur de début const
-    // std::vector<std::unique_ptr<PlanetObject>>::const_iterator begin() const{
-    //     return _planets.begin();
-    // }
+    /**
+     * @brief Retrieves the amount of planets stored.
+     *
+     * @return The number of planets.
+     ********************************************************************************/
+    unsigned int nbPlanets();
 
-    // // Définir l'itérateur de fin const
-    // std::vector<std::unique_ptr<PlanetObject>>::const_iterator end() const{
-    //     return _planets.end();
-    // }
-
-
-    //Fonctions pour obtenir les itérateurs de début et de fin
-    Iterator begin() {
-        return Iterator(_planets, 0);
-    }
-
-    Iterator end() {
-        return Iterator(_planets, _planets.size());
-    }
-
-    unsigned int nbPlanets(){
-        return _planets.size();
-    }
-
-
-
-    // Surcharge de l'opérateur []
-    PlanetObject& operator[](unsigned int index) {
-        // Vérifier la validité de l'index
-        if (index >= _planets.size()) {
-            throw std::out_of_range("Index hors limites");
-        }
-
-        // Retourner la référence à l'élément à l'index spécifié
-        return *_planets[index];
-    }
-
-
-    PlanetObject& firstElem(){
-        return *_planets[0];
-    }
+    /**
+     * @brief Retrieves the planet ath the given.
+     *
+     * Returns the index th planet stored.
+     *
+     * @param index An integer describing the index which must belong to the
+     * [0, size - 1] interval.
+     *
+     * @return The number of planets.
+     ********************************************************************************/
+    PlanetObject &operator[](unsigned int index);
 };

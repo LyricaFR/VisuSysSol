@@ -83,12 +83,17 @@ public:
      ********************************************************************************/
     int isCreated();
 
-    ~Window(){
-        if(_window != NULL){
-            free(_window);
-            _window = NULL;
-        }
-    }
+    /**
+     * @brief Destructor of the class.
+     ********************************************************************************/
+    ~Window();
+
+    /**
+     * @brief Ends the window library.
+     *
+     * Terminates the GLFW library.
+     ********************************************************************************/
+    static void endWindowLib();
 
 private:
     /**
