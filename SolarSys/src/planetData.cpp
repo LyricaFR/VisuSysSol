@@ -39,11 +39,18 @@ SunData::SunData() : PlanetData(3, 1, 0, 0, 0)
 {
 }
 
+// Mercury
+
+MercuryData::MercuryData() : PlanetData(0.2, 0.25, 1.5, 0, 0.5)
+{
+}
+
 /*================================== EARTH DATA ====================================*/
 
 /**
  * @brief Constructor of the class.
  ********************************************************************************/
-EarthData::EarthData() : PlanetData(0.4, 0.5, 2, 0, 1)
+EarthData::EarthData() : PlanetData(0.4, 0.5, 3, 0, 1)
 {
 }
+
